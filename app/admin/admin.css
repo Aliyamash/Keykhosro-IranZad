@@ -1,0 +1,135 @@
+.admin-shell {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 5vw 80px;
+}
+.admin-header {
+  padding: 32px 0;
+  border-bottom: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.admin-header > span {
+  color: #aaa;
+}
+.admin-heading {
+  padding: 70px 0 40px;
+}
+.admin-heading h1 {
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 52px);
+  margin: 25px 0;
+}
+.admin-heading p {
+  color: #aaa;
+}
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.admin-select {
+  background: #222 !important;
+  color: #eee !important;
+  border: 1px solid #555 !important;
+  border-radius: 0 !important;
+  min-width: 180px;
+  height: 45px !important;
+}
+.admin-table th {
+  text-align: start !important;
+  color: #999;
+  font-size: 13px;
+}
+.admin-table td {
+  padding-block: 24px;
+}
+.admin-table small {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+}
+.status-badge {
+  border: 1px solid #555;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+.status-badge.new {
+  background: #eee;
+  color: #141414;
+}
+.status-badge.closed {
+  color: #888;
+}
+.admin-empty {
+  border: 1px solid #444;
+  padding: 60px 25px;
+  text-align: center;
+  line-height: 2;
+}
+.admin-empty h2 {
+  font-size: 23px;
+  font-weight: 400;
+}
+.admin-empty p {
+  color: #aaa;
+}
+.admin-pagination button {
+  background: none;
+  border: 1px solid #555;
+  padding: 12px;
+  color: inherit;
+}
+.admin-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 35px;
+  font-size: 13px;
+}
+.admin-dialog {
+  background: #202020 !important;
+  max-width: 650px !important;
+  max-height: 90svh;
+  overflow: auto;
+  border-radius: 0 !important;
+  padding: 30px !important;
+  gap: 18px !important;
+}
+.admin-dialog textarea {
+  background: #171717;
+  border: 1px solid #666;
+  padding: 16px;
+  color: #eee;
+  width: 100%;
+  font: inherit;
+  resize: vertical;
+}
+.inquiry-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 2;
+  border-block: 1px solid #444;
+  padding: 20px 0;
+}
+.inquiry-details {
+  font-size: 15px;
+  line-height: 2;
+}
+.admin-denied {
+  max-width: 700px;
+  margin: 15vh auto;
+  padding: 30px;
+  line-height: 2;
+}
+.admin-denied h1 {
+  font-size: 32px;
+  font-weight: 400;
+}
+.admin-denied p {
+  color: #aaa;
+}
