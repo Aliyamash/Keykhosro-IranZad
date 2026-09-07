@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { addChapterMotion } from './chapter-motion';
 gsap.registerPlugin(ScrollTrigger);
 export function useStudioMotion(page: string, lang: string) {
   useEffect(() => {
@@ -158,6 +159,7 @@ export function useStudioMotion(page: string, lang: string) {
           .to('.stage-one', { yPercent: -18, duration: 1 }, 1)
           .to('.stage-two', { yPercent: 15, duration: 1 }, 1);
       });
+      addChapterMotion(mm);
       gsap.to('.reading-progress', {
         scaleX: 1,
         ease: 'none',

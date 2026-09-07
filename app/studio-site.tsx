@@ -3,6 +3,14 @@ import { useEffect, useState } from 'react';
 import { useStudioMotion } from './use-studio-motion';
 import { InquiryForm } from './inquiry-form';
 import {
+  FrameSequence,
+  MovingManifesto,
+  ApertureStudy,
+  Diptych,
+  ContactSheet,
+  StudioProcess,
+} from './visual-chapters';
+import {
   Dialog,
   DialogContent,
   DialogTitle,
@@ -11,6 +19,10 @@ import {
 } from '@/components/ui/dialog';
 type Page = 'home' | 'works' | 'studio';
 export const photo = '/images/studio.webp';
+const workNumbers = Array.from(
+  { length: 8 },
+  (_, i) => `NO. ${String(i + 1).padStart(3, '0')}`,
+);
 export const faLorem =
   'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.';
 export const enLorem =
@@ -105,7 +117,7 @@ export default function StudioSite({ page }: { page: Page }) {
                   {t('برای کشف، اسکرول کنید', 'SCROLL TO EXPLORE')}{' '}
                   <span>↓</span>
                 </a>
-                <span>01 — 03</span>
+                <span>01 — 07</span>
               </div>
             </section>
             <section id="intro" className="intro">
@@ -146,9 +158,13 @@ export default function StudioSite({ page }: { page: Page }) {
                 </a>
               </div>
             </section>
+            <FrameSequence fa={fa} />
+            <MovingManifesto fa={fa} />
+            <ApertureStudy fa={fa} />
+            <Diptych fa={fa} />
             <section className="home-close">
               <span className="eyebrow">
-                03 / {t('یک آغاز تازه', 'A NEW BEGINNING')}
+                07 / {t('یک آغاز تازه', 'A NEW BEGINNING')}
               </span>
               <p>{fa ? faLorem : enLorem}</p>
               <a href="/studio#request" className="big-link">
@@ -160,7 +176,7 @@ export default function StudioSite({ page }: { page: Page }) {
         {page === 'works' && (
           <>
             <section className="page-heading">
-              <span className="eyebrow">KI / SELECTED WORK — 01–04</span>
+              <span className="eyebrow">KI / SELECTED WORK — 01–08</span>
               <h1 className="reveal-title">
                 {t('منتخب', 'Selected')}
                 <br />
@@ -169,12 +185,12 @@ export default function StudioSite({ page }: { page: Page }) {
               <div className="heading-aside">
                 <p>{fa ? faLorem : enLorem}</p>
                 <span>
-                  {t('چهار قاب، یک نگاه', 'FOUR FRAMES, ONE PERSPECTIVE')}
+                  {t('هشت قاب، یک نگاه', 'EIGHT FRAMES, ONE PERSPECTIVE')}
                 </span>
               </div>
             </section>
             <div className="works-grid">
-              {['NO. 001', 'NO. 002', 'NO. 003', 'NO. 004'].map((number, i) => (
+              {workNumbers.map((number, i) => (
                 <button
                   type="button"
                   className={`work-card work-${i}`}
@@ -199,7 +215,7 @@ export default function StudioSite({ page }: { page: Page }) {
                           '30% 65%',
                           '70% 30%',
                           '50% 90%',
-                        ][i],
+                        ][i % 4],
                       }}
                     />
                     <span className="image-open">↗</span>
@@ -213,6 +229,7 @@ export default function StudioSite({ page }: { page: Page }) {
                 </button>
               ))}
             </div>
+            <ContactSheet fa={fa} />
             <section className="home-close">
               <span className="eyebrow">{t('فصل بعدی', 'NEXT CHAPTER')}</span>
               <a href="/studio#request" className="big-link">
@@ -241,10 +258,21 @@ export default function StudioSite({ page }: { page: Page }) {
                 />
                 <DialogDescription>{fa ? faLorem : enLorem}</DialogDescription>
                 <div className="dialog-arrows">
-                  <button onClick={() => setActive(((active ?? 0) + 3) % 4)}>
+                  <button
+                    onClick={() =>
+                      setActive(
+                        ((active ?? 0) + workNumbers.length - 1) %
+                          workNumbers.length,
+                      )
+                    }
+                  >
                     {t('قبلی', 'PREVIOUS')} ←
                   </button>
-                  <button onClick={() => setActive(((active ?? 0) + 1) % 4)}>
+                  <button
+                    onClick={() =>
+                      setActive(((active ?? 0) + 1) % workNumbers.length)
+                    }
+                  >
                     → {t('بعدی', 'NEXT')}
                   </button>
                 </div>
@@ -291,6 +319,8 @@ export default function StudioSite({ page }: { page: Page }) {
                 {fa ? faLorem : enLorem} {fa ? faLorem : enLorem}
               </p>
             </section>
+            <StudioProcess fa={fa} />
+            <ContactSheet fa={fa} />
             <section id="request" className="request-section">
               <div>
                 <span className="eyebrow">

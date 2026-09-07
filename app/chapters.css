@@ -1,0 +1,553 @@
+.chapter-heading {
+  padding: 110px 8vw 65px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px 8vw;
+  align-items: end;
+}
+.chapter-heading > .eyebrow {
+  grid-column: 1/-1;
+}
+.chapter-heading h2 {
+  font-weight: 400;
+  font-size: clamp(38px, 5vw, 84px);
+  line-height: 1.6;
+  margin: 0;
+}
+.chapter-heading p {
+  font-size: 16px;
+  line-height: 2.2;
+  max-width: 390px;
+  color: var(--muted);
+  margin: 0;
+}
+.sequence-section {
+  padding-bottom: 70px;
+  overflow: clip;
+  background: #141414;
+}
+.sequence-viewport {
+  width: 100%;
+  overflow: auto;
+  padding-block: 35px;
+}
+.is-sequence-motion .sequence-viewport {
+  overflow: hidden;
+}
+.sequence-track {
+  display: flex;
+  align-items: center;
+  gap: 5vw;
+  width: max-content;
+  padding-inline: 8vw;
+  will-change: transform;
+}
+.sequence-frame {
+  flex: 0 0 38vw;
+  width: 38vw;
+  margin: 0;
+  align-self: center;
+}
+.sequence-frame:nth-child(even) {
+  flex-basis: 28vw;
+  width: 28vw;
+  transform: translateY(35px);
+}
+.sequence-image {
+  position: relative;
+  overflow: hidden;
+  height: min(58vh, 650px);
+}
+.sequence-frame:nth-child(even) .sequence-image {
+  height: min(45vh, 500px);
+}
+.sequence-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 48%;
+}
+.sequence-frame-1 img {
+  object-position: 30% 65%;
+  transform: scale(1.28);
+}
+.sequence-frame-2 img {
+  object-position: 50% 30%;
+  transform: scale(1.65);
+}
+.sequence-frame-3 img {
+  object-position: 75% 85%;
+  transform: scale(1.16);
+}
+.sequence-frame-4 img {
+  object-position: 50% 60%;
+  filter: brightness(0.68);
+}
+.frame-registration {
+  position: absolute;
+  inset: 15px auto auto 15px;
+  font: 24px Georgia;
+  color: white;
+}
+.sequence-frame figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 20px;
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 0.04em;
+}
+.sequence-footer {
+  display: flex;
+  align-items: center;
+  gap: 5vw;
+  justify-content: space-between;
+  padding: 70px 8vw 0;
+  font-size: 12px;
+  color: #aaa;
+}
+.sequence-line {
+  display: block;
+  height: 1px;
+  background: #ffffff25;
+  flex: 1;
+  position: relative;
+  direction: ltr;
+}
+.sequence-line i {
+  display: block;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: #ddd;
+}
+.manifesto-section {
+  padding: 150px 12vw 170px;
+  background: #e3e2de;
+  color: #181818;
+}
+.manifesto-section .eyebrow {
+  color: #64635f;
+}
+.manifesto-section h2 {
+  font-size: clamp(52px, 8vw, 145px);
+  font-weight: 400;
+  line-height: 1.65;
+  max-width: 1050px;
+  margin: 70px 0 80px;
+}
+.manifesto-word {
+  display: inline-block;
+  margin-inline-end: 0.18em;
+}
+.manifesto-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 45px;
+}
+.manifesto-bottom > span {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.manifesto-bottom p {
+  font-size: 16px;
+  line-height: 2.2;
+  max-width: 370px;
+  color: #666;
+  margin: 0;
+}
+.aperture-section {
+  position: relative;
+  height: 100svh;
+  min-height: 760px;
+  overflow: clip;
+  isolation: isolate;
+  background: #0c0c0c;
+}
+.aperture-mask {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(8% 12%);
+  overflow: hidden;
+}
+.aperture-mask img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: brightness(0.62);
+}
+.aperture-label {
+  position: absolute;
+  inset-inline-start: 6vw;
+  top: 50px;
+  z-index: 2;
+  color: #eee;
+}
+.aperture-section h2 {
+  font-weight: 400;
+  position: absolute;
+  inset: 30% 8vw auto;
+  font-size: clamp(64px, 10vw, 175px);
+  line-height: 1.55;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.aperture-section h2 > span,
+.aperture-section h2 > em {
+  display: block;
+}
+.aperture-section h2 > em {
+  font-style: normal;
+  text-align: end;
+}
+.aperture-caption {
+  position: absolute;
+  inset: auto 6vw 45px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: end;
+  z-index: 2;
+}
+.aperture-caption > span {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.aperture-caption p {
+  font-size: 14px;
+  line-height: 2;
+  max-width: 320px;
+  margin: 0;
+}
+.diptych-section {
+  padding-bottom: 100px;
+  background: #191919;
+}
+.diptych-images {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 9vw;
+  padding: 25px 8vw 0;
+  align-items: start;
+  isolation: isolate;
+}
+.diptych-images figure {
+  margin: 0;
+  min-width: 0;
+}
+.diptych-images figure:nth-child(2) {
+  padding-top: 180px;
+}
+.diptych-crop {
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.diptych-crop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.diptych-images figure:nth-child(2) img {
+  transform: scale(1.55);
+  object-position: 50% 38%;
+}
+.diptych-images figcaption {
+  padding: 22px 0;
+  font-size: 12px;
+  color: #aaa;
+  border-bottom: 1px solid #ffffff25;
+}
+.diptych-ampersand {
+  position: absolute;
+  left: 45%;
+  top: 30%;
+  font: italic clamp(100px, 18vw, 300px) var(--font-en);
+  color: #e3e2de;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.diptych-copy {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 8vw;
+  padding: 65px 8vw 0;
+}
+.diptych-copy p {
+  max-width: 410px;
+  font-size: 16px;
+  line-height: 2.2;
+  color: #aaa;
+}
+.diptych-copy a {
+  width: 280px;
+}
+.contact-sheet-section {
+  background: #d8d7d2;
+  color: #171717;
+  padding-bottom: 110px;
+}
+.contact-sheet-section .eyebrow,
+.contact-sheet-section .chapter-heading p {
+  color: #5b5b58;
+}
+.contact-sheet {
+  margin: 15px 8vw 0;
+  padding: 30px;
+  background: #191919;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px 25px;
+}
+.contact-sheet figure {
+  margin: 0;
+  min-width: 0;
+}
+.contact-sheet figure > div {
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.contact-sheet img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.contact-sheet figure:nth-child(3n + 2) img {
+  transform: scale(1.4);
+}
+.contact-sheet figcaption {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: #bbb;
+  font: 12px Arial;
+  letter-spacing: 0.08em;
+}
+.process-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12vw;
+  padding: 100px 8vw 150px;
+}
+.process-heading h2 {
+  font-size: clamp(36px, 4vw, 68px);
+  font-weight: 400;
+  line-height: 1.8;
+  margin: 35px 0;
+}
+.process-heading h2 em {
+  font-style: normal;
+  color: #aaa;
+}
+.process-photo {
+  width: 75%;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+.process-photo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.process-step {
+  padding: 35px 0 65px;
+  position: relative;
+  min-height: 350px;
+}
+.process-step > span {
+  font: 12px Arial;
+  color: #aaa;
+}
+.process-step h3 {
+  font-size: clamp(25px, 3vw, 45px);
+  font-weight: 400;
+  margin: 30px 0;
+}
+.process-step p {
+  font-size: 16px;
+  color: #aaa;
+  line-height: 2.2;
+  max-width: 400px;
+}
+.process-rule {
+  height: 1px;
+  background: #777;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  transform-origin: right;
+}
+html[lang='en'] .chapter-heading h2,
+html[lang='en'] .manifesto-section h2,
+html[lang='en'] .aperture-section h2,
+html[lang='en'] .process-heading h2,
+html[lang='en'] .process-step h3 {
+  font-family: var(--font-en);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+html[lang='en'] .process-rule {
+  transform-origin: left;
+}
+@media (max-width: 760px) {
+  .chapter-heading {
+    padding: 80px 7vw 40px;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .chapter-heading h2 {
+    font-size: 10vw;
+  }
+  .chapter-heading p {
+    max-width: 100%;
+  }
+  .sequence-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: auto;
+    gap: 55px;
+    padding: 0 7vw;
+    will-change: auto;
+  }
+  .sequence-frame,
+  .sequence-frame:nth-child(even) {
+    width: 100%;
+    transform: none;
+  }
+  .sequence-frame:nth-child(even) {
+    width: 80%;
+    justify-self: end;
+  }
+  .sequence-image,
+  .sequence-frame:nth-child(even) .sequence-image {
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+  .sequence-footer {
+    padding: 45px 7vw 0;
+    gap: 20px;
+  }
+  .sequence-footer > span:first-child {
+    max-width: 120px;
+    line-height: 1.9;
+  }
+  .manifesto-section {
+    padding: 85px 7vw;
+  }
+  .manifesto-section h2 {
+    font-size: 13vw;
+    margin: 50px 0;
+    line-height: 1.8;
+  }
+  .manifesto-bottom {
+    display: block;
+  }
+  .manifesto-bottom p {
+    margin-top: 30px;
+  }
+  .aperture-section {
+    height: 95svh;
+    min-height: 680px;
+  }
+  .aperture-mask {
+    clip-path: inset(4% 5%);
+  }
+  .aperture-label {
+    top: 35px;
+  }
+  .aperture-section h2 {
+    font-size: 16vw;
+    inset: 33% 7vw auto;
+    line-height: 1.6;
+  }
+  .aperture-caption {
+    bottom: 40px;
+    inset-inline: 7vw;
+    display: block;
+  }
+  .aperture-caption p {
+    max-width: 260px;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .diptych-images {
+    padding: 15px 7vw 0;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .diptych-images figure:nth-child(2) {
+    width: 78%;
+    padding-top: 0;
+    justify-self: end;
+  }
+  .diptych-ampersand {
+    top: 40%;
+    left: 10%;
+    font-size: 38vw;
+  }
+  .diptych-copy {
+    padding: 35px 7vw 0;
+    display: block;
+  }
+  .diptych-section {
+    padding-bottom: 65px;
+  }
+  .contact-sheet-section {
+    padding-bottom: 65px;
+  }
+  .contact-sheet {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 10px 5vw 0;
+    padding: 15px;
+    gap: 28px 14px;
+  }
+  .contact-sheet figcaption {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+  .process-section {
+    padding: 80px 7vw;
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .process-heading h2 {
+    font-size: 10vw;
+  }
+  .process-photo {
+    width: 80%;
+    max-height: 400px;
+  }
+  .process-step {
+    min-height: 0;
+    padding: 30px 0 55px;
+  }
+  .process-step h3 {
+    font-size: 28px;
+  }
+}
+@media (min-width: 761px) and (prefers-reduced-motion: reduce) {
+  .sequence-track {
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 45px;
+  }
+  .sequence-frame,
+  .sequence-frame:nth-child(even) {
+    width: 100%;
+    transform: none;
+  }
+  .sequence-image,
+  .sequence-frame:nth-child(even) .sequence-image {
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+}
