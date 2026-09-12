@@ -15,6 +15,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/doran-medium.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/doran-bold.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

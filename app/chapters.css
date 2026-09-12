@@ -86,7 +86,7 @@
 .frame-registration {
   position: absolute;
   inset: 15px auto auto 15px;
-  font: 24px Georgia;
+  font: 500 24px var(--font-ui);
   color: white;
 }
 .sequence-frame figcaption {
@@ -343,7 +343,7 @@ html[lang='fa'] .sequence-line i {
   justify-content: space-between;
   margin-top: 15px;
   color: #bbb;
-  font: 12px Arial;
+  font: 500 12px var(--font-ui);
   letter-spacing: 0.08em;
 }
 .process-section {
@@ -385,7 +385,7 @@ html[lang='fa'] .sequence-line i {
   min-height: 350px;
 }
 .process-step > span {
-  font: 12px Arial;
+  font: 500 12px var(--font-ui);
   color: #aaa;
 }
 .process-step h3 {

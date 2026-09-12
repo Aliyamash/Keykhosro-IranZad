@@ -19,8 +19,11 @@
   --foreground: #eeeae3;
   --muted: #a19e98;
   --border: #ffffff25;
-  --font-en: 'Studio English', Georgia, 'Times New Roman', serif;
-  --font-fa: 'Studio Persian', Tahoma, serif;
+  --font-heading-en: 'Playfair Display Local', Georgia, 'Times New Roman', serif;
+  --font-body-en: 'Montserrat Local', Arial, sans-serif;
+  --font-fa: 'Doran Local', Tahoma, sans-serif;
+  --font-en: var(--font-heading-en);
+  --font-ui: var(--font-fa);
   --radius: 0px;
   color-scheme: dark;
 }
@@ -30,6 +33,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 110px;
+  font-synthesis: none;
 }
 body {
   margin: 0;
@@ -37,11 +41,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-fa);
+  font-weight: 500;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 html[lang='en'] body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-body-en);
+  font-weight: 400;
+}
+html[lang='en'] {
+  --font-ui: var(--font-body-en);
 }
 a {
   color: inherit;
@@ -154,7 +163,7 @@ button:focus-visible {
   background: #f1f1ee;
 }
 .nav-index {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 10px;
   color: #777;
   transition: color 0.3s ease;
@@ -178,7 +187,7 @@ button:focus-visible {
   border: 1px solid #ffffff20;
   border-radius: 999px;
   color: inherit;
-  font-family: Arial;
+  font-family: var(--font-ui);
   font-size: 13px;
   display: flex;
   gap: 8px;
@@ -216,7 +225,7 @@ button:focus-visible {
   inset-inline: 4vw;
   display: flex;
   justify-content: space-between;
-  font: 12px Arial;
+  font: 500 12px var(--font-ui);
   letter-spacing: 0.16em;
   color: #aaa;
 }
@@ -252,7 +261,7 @@ button:focus-visible {
 }
 .hero-detail > span {
   display: block;
-  font: 10px Arial;
+  font: 500 10px var(--font-ui);
   letter-spacing: 0.1em;
   margin-top: 12px;
   white-space: nowrap;
@@ -280,7 +289,7 @@ button:focus-visible {
   padding-inline-start: 15%;
 }
 .hero-title i {
-  font: 14px Arial;
+  font: 500 14px var(--font-ui);
   vertical-align: top;
   display: inline-block;
   margin: 25px 15px;
@@ -526,6 +535,7 @@ html[lang='en'] .wordmark > span {
     transition: none !important;
   }
 }
+
 .page-curtain {
   position: fixed;
   inset: 0;
@@ -735,8 +745,7 @@ html[lang='en'] .wordmark > span {
 }
 .about-facts dt {
   font:
-    11px/1.7 Arial,
-    sans-serif;
+    500 11px/1.7 var(--font-ui);
   letter-spacing: 0.12em;
   color: #686865;
 }
@@ -769,8 +778,7 @@ html[lang='en'] .wordmark > span {
   justify-content: space-between;
   margin-top: 12px;
   font:
-    11px/1.6 Arial,
-    sans-serif;
+    500 11px/1.6 var(--font-ui);
   letter-spacing: 0.12em;
   color: #4c4c49;
 }
@@ -816,7 +824,7 @@ html[lang='en'] .about-copy h2 {
   padding-bottom: 30px;
 }
 .big-link > span {
-  font-family: Arial;
+  font-family: var(--font-ui);
   font-size: 0.7em;
   transition: transform 0.4s;
 }
@@ -908,7 +916,7 @@ html[lang='en'] .about-copy h2 {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font: 28px Arial;
+  font: 500 28px var(--font-ui);
   background: #0002;
   transition: transform 0.5s;
 }
@@ -1354,4 +1362,35 @@ html[lang='en'] .big-link {
     inset-inline-start: 20px;
     font-size: 11px;
   }
+}
+
+/* Final language typography layer: this must remain after every component rule. */
+html[lang='en'] :is(h1, h2, h3, .hero-title, .stage-title, .big-link, .wordmark > span, .about-outline) {
+  font-family: var(--font-heading-en);
+  font-weight: 500;
+}
+html[lang='en'] :is(.hero-title, .page-heading h1) {
+  font-weight: 900;
+}
+html[lang='en'] :is(button, input, textarea, select, nav, p, li, dt, dd, figcaption) {
+  font-family: var(--font-body-en);
+}
+html[lang='en'] strong {
+  font-weight: 900;
+}
+html[lang='fa'] :is(h1, h2, h3, .hero-title, .stage-title, .big-link, .wordmark > span, .about-outline) {
+  font-family: var(--font-fa);
+  font-weight: 700;
+}
+html[lang='fa'] :is(button, input, textarea, select, nav, p, li, dt, dd, figcaption) {
+  font-family: var(--font-fa);
+  font-weight: 500;
+}
+html[lang='fa'] strong {
+  font-weight: 700;
+}
+html[lang='fa'] .stage-title em {
+  font-family: var(--font-fa);
+  font-style: normal;
+  font-weight: 500;
 }
