@@ -87,6 +87,8 @@ export function addChapterMotion(mm: gsap.MatchMedia, lang: string) {
       sequence.classList.add('is-sequence-motion');
       const distance = () =>
         Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const startX = () => (rtl ? -distance() : 0);
+      const endX = () => (rtl ? 0 : -distance());
       gsap
         .timeline({
           scrollTrigger: {
@@ -100,9 +102,9 @@ export function addChapterMotion(mm: gsap.MatchMedia, lang: string) {
         })
         .fromTo(
           track,
-          { x: 0 },
+          { x: startX },
           {
-            x: () => (rtl ? distance() : -distance()),
+            x: endX,
             ease: 'none',
             duration: 1,
           },

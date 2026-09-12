@@ -9,6 +9,11 @@ export const siteMedia = {
     '/images/portfolio/telegram/73a-9860.webp',
     '/images/portfolio/telegram/73a-9070.webp',
     '/images/portfolio/telegram/jewel-profile.webp',
+    '/images/portfolio/telegram/mg-7721.webp',
+    '/images/portfolio/telegram/73a-6567.webp',
+    '/images/portfolio/telegram/ins-03586.webp',
+    '/images/portfolio/outdoor-motion.webp',
+    '/images/portfolio/portrait-glasses.webp',
   ],
   aperture: '/images/portfolio/telegram/ins-07864.webp',
   diptych: [

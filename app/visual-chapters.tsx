@@ -4,8 +4,26 @@ type ChapterProps = { fa: boolean };
 
 export function FrameSequence({ fa }: ChapterProps) {
   const names = fa
-    ? ['حضور', 'حرکت', 'مکث', 'نور', 'ردّ تصویر']
-    : ['Presence', 'Movement', 'Stillness', 'Light', 'Afterimage'];
+    ? [
+        'حضور',
+        'حرکت',
+        'مکث',
+        'نور',
+        'ردّ تصویر',
+        'سایه',
+        'فاصله',
+        'نگاه',
+      ]
+    : [
+        'Presence',
+        'Movement',
+        'Stillness',
+        'Light',
+        'Afterimage',
+        'Shadow',
+        'Distance',
+        'Gaze',
+      ];
   const frames = siteMedia.sequence.map((image, index) => ({
     name: names[index],
     image,
@@ -190,6 +208,8 @@ export function ContactSheet({
       url: siteMedia.sequence[i % siteMedia.sequence.length],
       title_fa: 'اتود تصویری',
       title_en: 'Photographic study',
+      width: 1280,
+      height: 1920,
     }));
   if (!frames.length) return null;
   return (
