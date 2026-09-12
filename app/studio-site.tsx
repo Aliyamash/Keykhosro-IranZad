@@ -228,11 +228,12 @@ export default function StudioSite({
                   07 / {t('درباره من', 'ABOUT ME')}
                 </span>
                 <h2 id="about-title">
-                  <span>{t('پشتِ', 'Behind')}</span>
+                  <span>{t('مردِ پشتِ', 'The man behind')}</span>
                   <em>{t('دوربین.', 'the lens.')}</em>
                 </h2>
-                <p>{c(siteCopy.aboutMe)}</p>
-                <p>{c(siteCopy.aboutPractice)}</p>
+                {siteCopy.aboutBio.map((paragraph, index) => (
+                  <p key={index}>{c(paragraph)}</p>
+                ))}
                 <dl className="about-facts">
                   <div>
                     <dt>{t('حوزه', 'PRACTICE')}</dt>

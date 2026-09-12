@@ -65,14 +65,20 @@ export const siteCopy = {
     en: 'The lighting is set. The studio is ready. Let us craft the powerful, cinematic visual legacy you deserve. Step into the frame.',
     fa: 'نور آماده است. استودیو منتظر شماست. بیایید میراثی تصویری، قدرتمند و سینمایی بسازیم که شایسته آن هستید. وارد تصویر شوید.',
   },
-  aboutMe: {
-    en: 'I am Keykhosro Iranzad, a photographer and visual storyteller. I look for the quiet instant when light, character, and space align—then shape it into an image that feels honest, deliberate, and lasting.',
-    fa: 'من کیخسرو ایرانزادم؛ عکاس و روایتگر تصویر. در جست‌وجوی لحظه آرامی هستم که نور، شخصیت و فضا در یک نقطه به هم می‌رسند؛ سپس آن لحظه را به تصویری صادق، دقیق و ماندگار تبدیل می‌کنم.',
-  },
-  aboutPractice: {
-    en: 'My process moves between observation and direction: listening first, building trust, and using monochrome contrast to reveal what is already present rather than imposing a pose.',
-    fa: 'مسیر کاری من میان مشاهده و هدایت حرکت می‌کند: اول شنیدن، بعد ساختن اعتماد، و در نهایت استفاده از کنتراست تک‌رنگ برای آشکارکردن چیزی که از قبل حضور دارد؛ نه تحمیل یک ژست.',
-  },
+  aboutBio: [
+    {
+      en: 'With over a decade of experience in portrait, editorial, and fashion photography, Keykhosro has dedicated his career to mastering the delicate interplay of light, form, and conceptual storytelling. His visual approach is deeply rooted in continuous research—constantly refining his understanding of lighting techniques, dynamic posing, and the psychology of the frame to capture the raw, authentic essence of his subjects.',
+      fa: 'کیخسرو با بیش از یک دهه تجربه در عکاسی پرتره، ادیتوریال و مد، مسیر حرفه‌ای خود را صرف تسلط بر هم‌نشینی ظریف نور، فرم و روایت‌گری مفهومی کرده است. نگاه بصری او بر پژوهشی پیوسته بنا شده؛ پژوهشی که در آن شناخت خود از تکنیک‌های نورپردازی، ژست‌های پویا و روان‌شناسی قاب را همواره دقیق‌تر می‌کند تا جوهره خام و اصیل سوژه‌هایش را به تصویر بکشد.',
+    },
+    {
+      en: 'His distinctive, high-contrast aesthetic has garnered international recognition, with his work published in prestigious global outlets such as Marika Magazine. He is also a recognized member of Kavyar, an exclusive global platform for elite photography professionals. Alongside his independent fine-art and editorial projects, Keykhosro brings his cinematic eye to select commercial collaborations, including high-end wedding and conceptual projects with Mina Studio.',
+      fa: 'زیبایی‌شناسی متمایز و پرکنتراست او تحسین بین‌المللی را برانگیخته و آثارش در رسانه‌های معتبر جهانی، از جمله مجله ماریکا، منتشر شده‌اند. او همچنین عضو شناخته‌شده Kavyar، پلتفرم اختصاصی جهانی برای عکاسان حرفه‌ای برگزیده، است. کیخسرو در کنار پروژه‌های مستقل هنری و ادیتوریال، نگاه سینمایی خود را به همکاری‌های تجاری منتخب نیز می‌آورد؛ از جمله پروژه‌های عروسی سطح‌بالا و آثار مفهومی با استودیو مینا.',
+    },
+    {
+      en: 'Yet, beyond the camera, Keykhosro’s true driving force is a profound commitment to personal growth and the service of others. Guided by a core belief that true art must elevate humanity, he has made a lifelong pledge: 10% of all his photography income is dedicated to charitable causes and supporting those in need. For Keykhosro, every shutter click is not merely about capturing beauty, but about contributing to a more compassionate world.',
+      fa: 'اما فراتر از دوربین، نیروی محرک واقعی کیخسرو تعهدی عمیق به رشد فردی و خدمت به دیگران است. با این باور بنیادی که هنر حقیقی باید انسانیت را تعالی دهد، او عهدی همیشگی بسته است: ده درصد از تمام درآمد عکاسی‌اش به امور خیریه و حمایت از نیازمندان اختصاص می‌یابد. برای کیخسرو، هر فشردن شاتر فقط ثبت زیبایی نیست؛ سهمی است در ساختن جهانی مهربان‌تر.',
+    },
+  ],
 } as const;
 
 export function localized(fa: boolean, value: { fa: string; en: string }) {
