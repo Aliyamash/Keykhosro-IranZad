@@ -85,8 +85,12 @@ export function addChapterMotion(mm: gsap.MatchMedia, lang: string) {
     const track = sequence?.querySelector<HTMLElement>('.sequence-track');
     if (sequence && viewport && track) {
       sequence.classList.add('is-sequence-motion');
+      // Keep the scrolling surface in physical LTR coordinates. Let GSAP alone
+      // reverse the motion for Persian; native RTL scroll origins differ across
+      // browsers and can otherwise offset an entire group of frames.
+      viewport.scrollLeft = 0;
       const distance = () =>
-        Math.max(0, track.scrollWidth - viewport.clientWidth);
+        Math.max(0, track.scrollWidth - viewport.getBoundingClientRect().width);
       const startX = () => (rtl ? -distance() : 0);
       const endX = () => (rtl ? 0 : -distance());
       gsap
@@ -98,6 +102,9 @@ export function addChapterMotion(mm: gsap.MatchMedia, lang: string) {
             pin: true,
             scrub: 1.1,
             invalidateOnRefresh: true,
+            onRefreshInit: () => {
+              viewport.scrollLeft = 0;
+            },
           },
         })
         .fromTo(

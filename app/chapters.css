@@ -30,6 +30,12 @@
   width: 100%;
   overflow: auto;
   padding-block: 35px;
+  direction: ltr;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.sequence-viewport::-webkit-scrollbar {
+  display: none;
 }
 .is-sequence-motion .sequence-viewport {
   overflow: hidden;
@@ -41,6 +47,7 @@
   width: max-content;
   padding-inline: 8vw;
   will-change: transform;
+  direction: ltr;
 }
 .sequence-frame {
   flex: 0 0 38vw;
