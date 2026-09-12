@@ -1,7 +1,132 @@
 .admin-shell {
   max-width: 1400px;
   margin: auto;
-  padding: 0 5vw 80px;
+  padding: 0 4vw 80px;
+  color: #eee;
+  font-size: 16px;
+}
+.photo-manager {
+  scroll-margin-top: 24px;
+  margin-top: 40px;
+}
+.photo-manager h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  margin-block: 16px;
+}
+.media-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.media-upload,
+.media-collection {
+  background: #191919;
+  border: 1px solid #353535;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.media-upload {
+  padding: 24px;
+  display: grid;
+  gap: 14px;
+}
+.media-upload h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.media-upload label {
+  font-size: 14px;
+  color: #ccc;
+}
+.media-upload input:not([type='file']) {
+  background: #222;
+  color: #eee;
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 14px;
+  width: 100%;
+}
+.media-upload small {
+  font-size: 12px;
+  color: #aaa;
+}
+.media-file {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+  border: 1px dashed #666;
+  border-radius: 16px;
+  padding: 20px;
+}
+.media-file > span:first-child {
+  font-size: 34px;
+}
+.media-file input {
+  width: 100%;
+  min-width: 0;
+  font-size: 12px;
+}
+.media-file img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+}
+.media-card {
+  border: 1px solid #393939;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.media-card > img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: contain;
+}
+.media-card > div {
+  padding: 14px;
+}
+.media-card h3 {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.media-card small {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin: 5px 0 16px;
+  overflow-wrap: anywhere;
+}
+.media-card button {
+  width: 100%;
+}
+.media-feedback {
+  padding: 18px;
+  border: 1px solid #555;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 1050px) {
+  .media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .media-layout {
+    grid-template-columns: 1fr;
+  }
+  .media-grid {
+    padding: 16px;
+    gap: 12px;
+  }
+  .admin-header-actions {
+    flex-wrap: wrap;
+  }
 }
 .admin-header {
   padding: 32px 0;
@@ -36,7 +161,7 @@
   background: #222 !important;
   color: #eee !important;
   border: 1px solid #555 !important;
-  border-radius: 0 !important;
+  border-radius: 12px !important;
   min-width: 180px;
   height: 45px !important;
 }
@@ -96,7 +221,7 @@
   max-width: 650px !important;
   max-height: 90svh;
   overflow: auto;
-  border-radius: 0 !important;
+  border-radius: 24px !important;
   padding: 30px !important;
   gap: 18px !important;
 }
@@ -132,4 +257,287 @@
 }
 .admin-denied p {
   color: #aaa;
+}
+.admin-brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.admin-brand > span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #555;
+  border-radius: 14px;
+  font-family: Georgia, serif;
+  font-size: 24px;
+}
+.admin-brand small {
+  display: block;
+  margin-top: 4px;
+  color: #999;
+  font-size: 12px;
+}
+.admin-header-actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.admin-header > span {
+  margin-inline-start: auto;
+  font-size: 13px;
+}
+.admin-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 48px 0 36px;
+}
+.admin-heading h1 {
+  font-size: clamp(28px, 3vw, 42px);
+  margin: 14px 0;
+}
+.admin-heading p {
+  font-size: 14px;
+}
+.admin-count {
+  padding-inline-start: 32px;
+  border-inline-start: 1px solid #383838;
+  min-width: 170px;
+}
+.admin-count strong {
+  display: block;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.admin-count span {
+  font-size: 13px;
+  color: #aaa;
+}
+.admin-inbox {
+  background: #191919;
+  border: 1px solid #353535;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px #0003;
+}
+.admin-toolbar {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px;
+  margin: 0;
+  border-bottom: 1px solid #353535;
+}
+.admin-inbox-title {
+  margin-inline-end: auto;
+  font-size: 16px;
+}
+.admin-shell .plain-button,
+.admin-dialog .plain-button {
+  border: 1px solid #414141;
+  border-radius: 10px;
+  background: #222;
+  padding: 10px 16px;
+  min-height: 44px;
+  color: #ddd;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.admin-shell .plain-button:hover,
+.admin-dialog .plain-button:hover {
+  background: #343434;
+}
+.admin-table {
+  min-width: 700px;
+}
+.admin-table th {
+  background: #202020;
+  color: #b4b4b4;
+  padding: 18px 24px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.admin-table td {
+  padding: 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #303030;
+}
+.admin-table tr {
+  border-color: #303030;
+}
+.admin-table tbody tr:hover {
+  background: #222;
+}
+.admin-client-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+.admin-table small {
+  margin-top: 5px;
+  font-size: 13px;
+}
+.admin-reference {
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.status-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-badge.closed {
+  color: #aaa;
+  border-style: dashed;
+}
+.admin-empty {
+  border: 0;
+  padding: 80px 24px;
+  min-height: 280px;
+}
+.admin-empty h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.admin-empty a {
+  display: inline-block;
+  margin-top: 24px;
+  border-bottom: 1px solid #888;
+  font-size: 14px;
+}
+.admin-pagination {
+  padding: 20px 24px;
+  border-top: 1px solid #353535;
+  gap: 16px;
+  font-size: 14px;
+}
+.admin-pagination button {
+  border-radius: 10px;
+  min-height: 44px;
+}
+.admin-shell button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.admin-shell :is(button, a):focus-visible,
+.admin-dialog :is(button, textarea):focus-visible {
+  outline: 2px solid #ddd;
+  outline-offset: 4px;
+}
+.admin-dialog {
+  border: 1px solid #454545 !important;
+  box-shadow: 0 40px 120px #0009;
+  color: #eee;
+}
+.admin-dialog .photo-dialog-top {
+  align-items: center;
+}
+.admin-dialog [data-slot='dialog-title'] {
+  font-size: 24px;
+  font-weight: 400;
+}
+.admin-dialog [data-slot='dialog-description'] {
+  color: #aaa;
+  font-size: 13px;
+}
+.inquiry-details {
+  overflow-wrap: anywhere;
+}
+.inquiry-details > p {
+  padding-block: 5px;
+  color: #ccc;
+}
+.inquiry-message {
+  border: 1px solid #3b3b3b;
+  border-radius: 16px;
+  background: #171717;
+  padding: 20px;
+  margin-top: 18px;
+}
+.admin-field-caption {
+  display: block;
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 10px;
+}
+.admin-dialog label {
+  font-size: 14px;
+  color: #bbb;
+}
+.admin-dialog textarea {
+  border-radius: 12px;
+  border-color: #444;
+  outline: none;
+}
+.admin-dialog .submit-button {
+  justify-content: center;
+  min-height: 52px;
+}
+.admin-denied {
+  border: 1px solid #383838;
+  border-radius: 24px;
+  background: #1b1b1b;
+}
+@media (max-width: 700px) {
+  .admin-header {
+    gap: 20px 12px;
+  }
+  .admin-header > span {
+    order: 3;
+    width: 100%;
+    margin: 0;
+  }
+  .admin-header-actions {
+    margin-inline-start: auto;
+    gap: 16px;
+  }
+  .admin-heading {
+    align-items: flex-start;
+    padding-top: 32px;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .admin-count {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 0;
+    padding: 0;
+  }
+  .admin-count strong {
+    font-size: 32px;
+  }
+  .admin-toolbar {
+    padding: 18px;
+  }
+  .admin-inbox-title {
+    width: 100%;
+  }
+  .admin-select {
+    min-width: 150px;
+  }
+  .admin-pagination {
+    padding: 18px 12px;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .admin-pagination button {
+    padding: 10px;
+  }
+  .admin-dialog {
+    padding: 22px !important;
+  }
 }

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import type { Inquiry } from '@/lib/inquiries';
+import PhotoManager from './photo-manager';
 import {
   Table,
   TableHeader,
@@ -28,6 +29,11 @@ const names: Record<string, string> = {
   new: 'جدید',
   reviewing: 'در حال بررسی',
   closed: 'بسته‌شده',
+};
+const services: Record<string, string> = {
+  editorial: 'عکاسی مد و ادیتوریال',
+  portrait: 'پرتره و مدلینگ',
+  other: 'همکاری دیگر',
 };
 export default function AdminPanel({ email }: { email: string }) {
   const [items, setItems] = useState<Inquiry[]>([]),
@@ -113,98 +119,120 @@ export default function AdminPanel({ email }: { email: string }) {
   return (
     <main className="admin-shell">
       <header className="admin-header">
-        <a href="/">کیخسرو ایرانزاد / مدیریت</a>
+        <a href="/" className="admin-brand">
+          <span aria-hidden="true">KI</span>
+          <div>
+            کیخسرو ایرانزاد<small>مدیریت استودیو</small>
+          </div>
+        </a>
         <span dir="ltr">{email}</span>
-        <a href="/signout-with-chatgpt?return_to=/">خروج ↗</a>
+        <div className="admin-header-actions">
+          <a href="#photo-library">مدیریت تصاویر</a>
+          <a href="/">مشاهده سایت ↗</a>
+          <a href="/signout-with-chatgpt?return_to=/">خروج</a>
+        </div>
       </header>
       <section className="admin-heading">
-        <span className="eyebrow">STUDIO / INQUIRIES</span>
-        <h1>درخواست‌های همکاری</h1>
-        <p>{total} درخواست در این فهرست</p>
+        <div>
+          <span className="eyebrow">STUDIO / INQUIRIES</span>
+          <h1>درخواست‌های همکاری</h1>
+          <p>گفت‌وگوهای تازه، پروژه‌های بعدی.</p>
+        </div>
+        <div className="admin-count">
+          <strong>{loading ? '—' : total.toLocaleString('fa-IR')}</strong>
+          <span>درخواست در این فهرست</span>
+        </div>
       </section>
-      <div className="admin-toolbar">
-        {choices(
-          filter,
-          (v) => {
-            setFilter(v);
-            setPage(1);
-          },
-          true,
-        )}
-        <button
-          className="plain-button"
-          onClick={() => setRefresh((n) => n + 1)}
-        >
-          به‌روزرسانی ↻
-        </button>
-      </div>
-      {error ? (
-        <div className="admin-empty" role="alert">
-          {error}
+      <section className="admin-inbox" aria-label="فهرست درخواست‌ها">
+        <div className="admin-toolbar">
+          <span className="admin-inbox-title">صندوق درخواست‌ها</span>
+          {choices(
+            filter,
+            (v) => {
+              setFilter(v);
+              setPage(1);
+            },
+            true,
+          )}
+          <button
+            className="plain-button"
+            disabled={loading}
+            onClick={() => setRefresh((n) => n + 1)}
+          >
+            به‌روزرسانی ↻
+          </button>
         </div>
-      ) : loading ? (
-        <div className="admin-empty" role="status">
-          در حال دریافت درخواست‌ها…
-        </div>
-      ) : items.length === 0 ? (
-        <div className="admin-empty">
-          <h2>هنوز درخواستی در این فهرست نیست.</h2>
-          <p>درخواست‌های فرم همکاری اینجا نمایش داده می‌شوند.</p>
-          <a href="/studio#request">مشاهده فرم همکاری ↗</a>
-        </div>
-      ) : (
-        <Table className="admin-table">
-          <TableHeader>
-            <TableRow>
-              {['کد پیگیری', 'نام / ایمیل', 'تاریخ', 'وضعیت', 'جزئیات'].map(
-                (h) => (
-                  <TableHead key={h}>{h}</TableHead>
-                ),
-              )}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {items.map((i) => (
-              <TableRow key={i.id}>
-                <TableCell dir="ltr">{i.reference}</TableCell>
-                <TableCell>
-                  {i.name}
-                  <small dir="ltr">{i.email}</small>
-                </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat('fa-IR', {
-                    dateStyle: 'medium',
-                  }).format(i.created_at)}
-                </TableCell>
-                <TableCell>
-                  <span className={'status-badge ' + i.status}>
-                    {names[i.status]}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <button className="plain-button" onClick={() => open(i)}>
-                    مشاهده ↗
-                  </button>
-                </TableCell>
+        {error ? (
+          <div className="admin-empty" role="alert">
+            {error}
+          </div>
+        ) : loading ? (
+          <div className="admin-empty" role="status">
+            در حال دریافت درخواست‌ها…
+          </div>
+        ) : items.length === 0 ? (
+          <div className="admin-empty">
+            <h2>هنوز درخواستی در این فهرست نیست.</h2>
+            <p>درخواست‌های فرم همکاری اینجا نمایش داده می‌شوند.</p>
+            <a href="/studio#request">مشاهده فرم همکاری ↗</a>
+          </div>
+        ) : (
+          <Table className="admin-table">
+            <TableHeader>
+              <TableRow>
+                {['کد پیگیری', 'نام / ایمیل', 'تاریخ', 'وضعیت', 'جزئیات'].map(
+                  (h) => (
+                    <TableHead key={h}>{h}</TableHead>
+                  ),
+                )}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-      <div className="admin-pagination">
-        <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-          صفحه قبل
-        </button>
-        <span>
-          صفحه {page} از {Math.max(1, Math.ceil(total / 30))}
-        </span>
-        <button
-          disabled={page * 30 >= total}
-          onClick={() => setPage((p) => p + 1)}
-        >
-          صفحه بعد
-        </button>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {items.map((i) => (
+                <TableRow key={i.id}>
+                  <TableCell dir="ltr" className="admin-reference">
+                    {i.reference}
+                  </TableCell>
+                  <TableCell>
+                    <strong className="admin-client-name">{i.name}</strong>
+                    <small dir="ltr">{i.email}</small>
+                  </TableCell>
+                  <TableCell>
+                    {new Intl.DateTimeFormat('fa-IR', {
+                      dateStyle: 'medium',
+                    }).format(i.created_at)}
+                  </TableCell>
+                  <TableCell>
+                    <span className={'status-badge ' + i.status}>
+                      {names[i.status]}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <button className="plain-button" onClick={() => open(i)}>
+                      مشاهده ↗
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+        <div className="admin-pagination">
+          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+            صفحه قبل
+          </button>
+          <span>
+            صفحه {page} از {Math.max(1, Math.ceil(total / 30))}
+          </span>
+          <button
+            disabled={page * 30 >= total}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            صفحه بعد
+          </button>
+        </div>
+      </section>
+      <PhotoManager />
       <Dialog
         open={!!active}
         onOpenChange={(o) => {
@@ -226,8 +254,14 @@ export default function AdminPanel({ email }: { email: string }) {
             <p>
               تلفن: <span dir="ltr">{active?.phone || '—'}</span>
             </p>
-            <p>نوع همکاری: {active?.service}</p>
-            <p className="inquiry-message">{active?.message}</p>
+            <p>
+              نوع همکاری:{' '}
+              {active ? services[active.service] || active.service : ''}
+            </p>
+            <div className="inquiry-message">
+              <span className="admin-field-caption">شرح پروژه</span>
+              <p>{active?.message}</p>
+            </div>
           </div>
           <label>وضعیت درخواست</label>
           {choices(status, setStatus)}
@@ -237,6 +271,7 @@ export default function AdminPanel({ email }: { email: string }) {
             maxLength={4000}
             rows={4}
             value={note}
+            placeholder="یادداشت پیگیری این درخواست…"
             onChange={(e) => setNote(e.target.value)}
           />
           {saveError && <p role="alert">{saveError}</p>}

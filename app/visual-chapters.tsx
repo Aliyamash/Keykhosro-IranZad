@@ -1,16 +1,23 @@
+import { localized, siteCopy } from './site-copy';
+import { siteMedia } from './site-media';
 type ChapterProps = { fa: boolean };
-const image = '/images/studio.webp';
-const lorem = (fa: boolean) =>
-  fa
-    ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.'
-    : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.';
 
 export function FrameSequence({ fa }: ChapterProps) {
   const names = fa
     ? ['حضور', 'حرکت', 'مکث', 'نور', 'ردّ تصویر']
     : ['Presence', 'Movement', 'Stillness', 'Light', 'Afterimage'];
+  const frames = siteMedia.sequence.map((image, index) => ({
+    name: names[index],
+    image,
+    index,
+  }));
+  const visualFrames = fa ? [...frames].reverse() : frames;
   return (
-    <section className="sequence-section" aria-labelledby="sequence-title">
+    <section
+      className="sequence-section"
+      data-motion-direction={fa ? 'rtl' : 'ltr'}
+      aria-labelledby="sequence-title"
+    >
       <header className="chapter-heading">
         <span className="eyebrow">
           03 / {fa ? 'مطالعات تصویری' : 'VISUAL STUDIES'}
@@ -18,12 +25,15 @@ export function FrameSequence({ fa }: ChapterProps) {
         <h2 id="sequence-title">
           {fa ? 'میانِ قاب‌ها.' : 'Between the frames.'}
         </h2>
-        <p>{lorem(fa)}</p>
+        <p>{localized(fa, siteCopy.betweenFrames)}</p>
       </header>
       <div className="sequence-viewport">
         <div className="sequence-track" dir="ltr">
-          {names.map((name, i) => (
-            <figure className={`sequence-frame sequence-frame-${i}`} key={i}>
+          {visualFrames.map(({ name, image, index }) => (
+            <figure
+              className={`sequence-frame sequence-frame-${index}`}
+              key={image}
+            >
               <div className="sequence-image">
                 <img
                   src={image}
@@ -37,9 +47,7 @@ export function FrameSequence({ fa }: ChapterProps) {
                 </span>
               </div>
               <figcaption dir={fa ? 'rtl' : 'ltr'}>
-                <span>
-                  0{i + 1} / {name}
-                </span>
+                <span>{name}</span>
                 <span>KI — STUDY</span>
               </figcaption>
             </figure>
@@ -53,7 +61,7 @@ export function FrameSequence({ fa }: ChapterProps) {
         <span className="sequence-line" aria-hidden="true">
           <i />
         </span>
-        <span>01 — 05</span>
+        <span>KI / STUDIO</span>
       </div>
     </section>
   );
@@ -77,7 +85,7 @@ export function MovingManifesto({ fa }: ChapterProps) {
       </h2>
       <div className="manifesto-bottom">
         <span>KEYKHOSRO IRANZAD</span>
-        <p>{lorem(fa)}</p>
+        <p>{localized(fa, siteCopy.beginsInSilence)}</p>
       </div>
     </section>
   );
@@ -88,7 +96,7 @@ export function ApertureStudy({ fa }: ChapterProps) {
     <section className="aperture-section" aria-labelledby="aperture-title">
       <div className="aperture-mask">
         <img
-          src={image}
+          src={siteMedia.aperture}
           alt={
             fa
               ? 'مطالعه نور و سایه در استودیو'
@@ -107,8 +115,8 @@ export function ApertureStudy({ fa }: ChapterProps) {
         <em>{fa ? 'یک لحظه.' : 'a moment.'}</em>
       </h2>
       <div className="aperture-caption">
-        <span>KI / 001</span>
-        <p>{lorem(fa)}</p>
+        <span>KI / STUDIO</span>
+        <p>{localized(fa, siteCopy.insideMoment)}</p>
       </div>
     </section>
   );
@@ -124,12 +132,13 @@ export function Diptych({ fa }: ChapterProps) {
         <h2 id="diptych-title">
           {fa ? 'روایت ناتمام.' : 'An unfinished story.'}
         </h2>
+        <p>{localized(fa, siteCopy.unfinishedStory)}</p>
       </header>
       <div className="diptych-images">
         <figure>
           <div className="diptych-crop">
             <img
-              src={image}
+              src={siteMedia.diptych[0]}
               alt={
                 fa
                   ? 'قاب باز از فضای عکاسی'
@@ -140,12 +149,12 @@ export function Diptych({ fa }: ChapterProps) {
               height={1920}
             />
           </div>
-          <figcaption>01 / {fa ? 'فضا' : 'SPACE'}</figcaption>
+          <figcaption>{fa ? 'فضا' : 'SPACE'}</figcaption>
         </figure>
         <figure>
           <div className="diptych-crop">
             <img
-              src={image}
+              src={siteMedia.diptych[1]}
               alt={
                 fa ? 'جزئیات نور در پرتره' : 'Light and detail in the portrait'
               }
@@ -154,14 +163,14 @@ export function Diptych({ fa }: ChapterProps) {
               height={1920}
             />
           </div>
-          <figcaption>02 / {fa ? 'حضور' : 'PRESENCE'}</figcaption>
+          <figcaption>{fa ? 'حضور' : 'PRESENCE'}</figcaption>
         </figure>
         <span className="diptych-ampersand" aria-hidden="true">
           &
         </span>
       </div>
       <div className="diptych-copy">
-        <p>{lorem(fa)}</p>
+        <p>{localized(fa, siteCopy.space)}</p>
         <a className="text-link" href="/works">
           {fa ? 'تمام آثار' : 'ALL SELECTED WORK'} ↗
         </a>
@@ -170,25 +179,39 @@ export function Diptych({ fa }: ChapterProps) {
   );
 }
 
-export function ContactSheet({ fa }: ChapterProps) {
+export function ContactSheet({
+  fa,
+  photos,
+}: ChapterProps & { photos?: import('@/lib/photo-types').Photo[] }) {
+  const frames =
+    photos ??
+    Array.from({ length: 6 }, (_, i) => ({
+      id: String(i),
+      url: siteMedia.sequence[i % siteMedia.sequence.length],
+      title_fa: 'اتود تصویری',
+      title_en: 'Photographic study',
+    }));
+  if (!frames.length) return null;
   return (
     <section className="contact-sheet-section" aria-labelledby="sheet-title">
       <header className="chapter-heading">
         <span className="eyebrow">KI / CONTACT SHEET</span>
         <h2 id="sheet-title">{fa ? 'پیش از انتخاب.' : 'Before the edit.'}</h2>
-        <p>{lorem(fa)}</p>
+        <p>{localized(fa, siteCopy.beforeEdit)}</p>
       </header>
       <div className="contact-sheet" dir="ltr">
-        {Array.from({ length: 6 }, (_, i) => (
-          <figure key={i}>
-            <div>
+        {frames.map((frame, i) => (
+          <figure key={frame.id}>
+            <div
+              style={
+                frame.width && frame.height
+                  ? { aspectRatio: `${frame.width}/${frame.height}` }
+                  : undefined
+              }
+            >
               <img
-                src={image}
-                alt={
-                  fa
-                    ? `اتود تصویری شماره ${i + 1}`
-                    : `Photographic study ${i + 1}`
-                }
+                src={frame.url}
+                alt={fa ? frame.title_fa : frame.title_en}
                 loading="lazy"
                 width={1280}
                 height={1920}
@@ -200,12 +223,12 @@ export function ContactSheet({ fa }: ChapterProps) {
                     '35% 65%',
                     '70% 45%',
                     '50% 85%',
-                  ][i],
+                  ][i % 6],
                 }}
               />
             </div>
             <figcaption>
-              <span>KI / {String(i + 1).padStart(3, '0')}</span>
+              <span>{fa ? frame.title_fa : frame.title_en}</span>
               <span>+ +</span>
             </figcaption>
           </figure>
@@ -228,9 +251,10 @@ export function StudioProcess({ fa }: ChapterProps) {
           <br />
           <em>{fa ? 'تا تصویر.' : 'to an image.'}</em>
         </h2>
+        <p className="process-intro">{localized(fa, siteCopy.processIntro)}</p>
         <div className="process-photo">
           <img
-            src={image}
+            src={siteMedia.process}
             alt={
               fa
                 ? 'فضای خلق تصویر در استودیو'
@@ -247,7 +271,7 @@ export function StudioProcess({ fa }: ChapterProps) {
           <article className="process-step" key={i}>
             <span>0{i + 1}</span>
             <h3>{title}</h3>
-            <p>{lorem(fa)}</p>
+            <p>{localized(fa, siteCopy.processSteps[i])}</p>
             <div className="process-rule" aria-hidden="true" />
           </article>
         ))}

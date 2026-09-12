@@ -1,4 +1,14 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
+export const photos = sqliteTable('photos', {
+  id: text('id').primaryKey(),
+  section: text('section').notNull(),
+  titleFa: text('title_fa').notNull(),
+  titleEn: text('title_en').notNull(),
+  objectKey: text('object_key').notNull().default(''),
+  contentType: text('content_type').notNull().default('image/webp'),
+  deleted: integer('deleted').notNull().default(0),
+  createdAt: integer('created_at').notNull(),
+});
 export const inquiries = sqliteTable(
   'inquiries',
   {

@@ -51,6 +51,14 @@ export function InquiryForm({ lang }: { lang: 'fa' | 'en' }) {
     );
   return (
     <form className="inquiry-form" onSubmit={submit}>
+      <div className="inquiry-heading">
+        <span className="eyebrow">
+          {t('درخواست همکاری', 'PROJECT INQUIRY')}
+        </span>
+        <span className="inquiry-heading-mark" aria-hidden="true">
+          ↗
+        </span>
+      </div>
       <label>
         {t('نام و نام خانوادگی', 'FULL NAME')} <span>*</span>
         <input

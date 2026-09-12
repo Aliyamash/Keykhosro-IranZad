@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    'https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site',
-  ),
   title: {
     default: 'کیخسرو ایرانزاد — استودیو',
     template: '%s | کیخسرو ایرانزاد',

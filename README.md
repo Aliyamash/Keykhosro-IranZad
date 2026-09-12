@@ -5,7 +5,7 @@ Three bilingual public pages: /, /works, /studio. Inquiry management: /admin.
 ## Local development
 
 npm install
-npm run dev -- --port 4173
+npm run dev
 
 Run D1 migrations locally before submitting requests:
 
@@ -27,7 +27,7 @@ GSAP and ScrollTrigger in app/use-studio-motion.ts: entrance sequence, scroll pa
 
 ## Requests
 
-Requests persist in D1, with server validation, email-based rate limiting and origin checks. Admin can view full submissions, filter status, paginate and save internal notes/status. Email notifications and file uploads are not part of this version.
+Requests persist in D1, with server validation, email-based rate limiting and origin checks. Admin can view full submissions, filter status, paginate and save internal notes/status. The image library supports upload and removal for works and gallery, using D1 metadata and R2 file storage. Homepage imagery remains independent. Email notifications are not configured.
 
 ## Validation
 

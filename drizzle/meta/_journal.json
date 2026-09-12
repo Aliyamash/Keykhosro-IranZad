@@ -8,6 +8,13 @@
       "when": 1788712196011,
       "tag": "0000_curvy_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788771111497,
+      "tag": "0001_lonely_thaddeus_ross",
+      "breakpoints": true
     }
   ]
 }
