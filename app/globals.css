@@ -805,6 +805,93 @@ html[lang='en'] .about-copy h2 {
   font-family: var(--font-en);
   line-height: 0.94;
 }
+.impact-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(100px, 9vw, 170px) 7vw;
+  background: #101010;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: clamp(55px, 7vw, 130px);
+  align-items: center;
+  border-top: 1px solid #292929;
+  border-bottom: 1px solid #292929;
+}
+.impact-media {
+  margin: 0;
+}
+.impact-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #2e2e2e;
+  filter: contrast(1.04);
+}
+.impact-media figcaption {
+  margin-top: 14px;
+  font: 500 10px/1.6 var(--font-ui);
+  letter-spacing: 0.16em;
+  color: #777;
+}
+.impact-copy {
+  position: relative;
+  padding-bottom: clamp(100px, 11vw, 190px);
+}
+.impact-copy h2 {
+  margin: 40px 0 38px;
+  font-size: clamp(58px, 6.4vw, 116px);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.045em;
+}
+.impact-copy h2 span,
+.impact-copy h2 em {
+  display: block;
+}
+.impact-copy h2 em {
+  color: #8e8e8b;
+  font-style: normal;
+}
+.impact-pledge {
+  max-width: 560px;
+  margin: 0;
+  font-size: clamp(19px, 1.55vw, 27px);
+  line-height: 1.85;
+  color: #e5e3df;
+}
+.impact-note {
+  max-width: 500px;
+  margin: 30px 0 0;
+  color: #929292;
+  font-size: 14px;
+  line-height: 2;
+}
+.impact-mark {
+  position: absolute;
+  inset-inline-end: 0;
+  bottom: -0.08em;
+  display: flex;
+  align-items: flex-start;
+  color: transparent;
+  -webkit-text-stroke: 1px #5f5f5f;
+  opacity: 0.55;
+  font-family: var(--font-en);
+  line-height: 0.75;
+  pointer-events: none;
+}
+.impact-mark span {
+  font-size: clamp(120px, 15vw, 270px);
+  letter-spacing: -0.08em;
+}
+.impact-mark small {
+  margin-top: 0.08em;
+  font-size: clamp(45px, 5vw, 90px);
+}
+html[lang='en'] .impact-copy h2 {
+  font-family: var(--font-en);
+  line-height: 0.93;
+}
 .home-close {
   padding: 140px 8vw;
 }
@@ -1270,6 +1357,39 @@ html[lang='en'] .big-link {
   }
   html[dir='rtl'] .about-photo-secondary {
     justify-self: start;
+  }
+  .impact-section {
+    padding: 80px 7vw 90px;
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+  .impact-copy {
+    padding-bottom: 105px;
+  }
+  .impact-copy h2 {
+    margin: 32px 0 28px;
+    font-size: 16vw;
+    line-height: 1.25;
+  }
+  html[lang='en'] .impact-copy h2 {
+    font-size: 15vw;
+  }
+  .impact-pledge {
+    font-size: 18px;
+    line-height: 1.9;
+  }
+  .impact-note {
+    margin-top: 24px;
+  }
+  .impact-mark {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+  .impact-mark span {
+    font-size: 34vw;
+  }
+  .impact-mark small {
+    font-size: 13vw;
   }
   .editorial-stage {
     height: 780px;

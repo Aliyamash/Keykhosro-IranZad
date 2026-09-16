@@ -288,9 +288,52 @@ export default function StudioSite({
                 </figure>
               </div>
             </section>
+            <section
+              className="impact-section"
+              aria-labelledby="impact-title"
+            >
+              <figure className="impact-media">
+                <img
+                  src="/images/vision-with-impact.jpg"
+                  alt={t(
+                    'دست‌هایی پیرامون شعله‌ای کوچک؛ نمادی از همراهی و امید',
+                    'Hands gathered around a small flame, a symbol of care and hope',
+                  )}
+                  loading="lazy"
+                  width={1920}
+                  height={1080}
+                />
+                <figcaption>KI / ART &amp; HUMANITY</figcaption>
+              </figure>
+              <div className="impact-copy">
+                <span className="eyebrow">
+                  08 / {t('هنر و انسانیت', 'ART & HUMANITY')}
+                </span>
+                <h2 id="impact-title">
+                  <span>{t('نگاهی', 'Vision with')}</span>
+                  <em>{t('اثرگذار.', 'impact.')}</em>
+                </h2>
+                <p className="impact-pledge">
+                  {t(
+                    'ده درصد از درآمد هر پروژه عکاسی به امور بشردوستانه و حمایت از نیازمندان اختصاص می‌یابد.',
+                    'Ten percent of every photography project is dedicated to humanitarian causes and supporting those in need.',
+                  )}
+                </p>
+                <p className="impact-note">
+                  {t(
+                    'برای من، تصویر فقط نباید زیبایی را ثبت کند؛ باید اثری معنادار از خود به‌جا بگذارد.',
+                    'For me, an image should do more than hold beauty—it should leave something meaningful behind.',
+                  )}
+                </p>
+                <div className="impact-mark" aria-hidden="true">
+                  <span>10</span>
+                  <small>%</small>
+                </div>
+              </div>
+            </section>
             <section className="home-close">
               <span className="eyebrow">
-                08 / {t('یک آغاز تازه', 'A NEW BEGINNING')}
+                09 / {t('یک آغاز تازه', 'A NEW BEGINNING')}
               </span>
               <p>{c(siteCopy.nextStory)}</p>
               <a href="/studio#request" className="big-link">
