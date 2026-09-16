@@ -4,7 +4,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  if (!validOrigin(request) || !(await adminIdentity()))
+  if (!validOrigin(request) || !(await adminIdentity(request)))
     return Response.json(
       { error: 'Forbidden' },
       { status: 403, headers: privateHeaders },

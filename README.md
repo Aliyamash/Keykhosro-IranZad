@@ -11,7 +11,7 @@ Run D1 migrations locally before submitting requests:
 
 npx wrangler d1 migrations apply DB --local --config scripts/local-db.json --persist-to .wrangler/state
 
-The local Sites identity is seedy@sites.test. For local testing only, set ADMIN_EMAIL=seedy@sites.test in .dev.vars. Production ADMIN_EMAIL must be the actual administrator email, configured in Sites; it is never taken from form input. The admin page and all admin APIs check authorization on the server.
+The admin page uses a password-derived hash and a separate session secret. For local testing, set `ADMIN_PASSWORD_HASH` and `ADMIN_SESSION_SECRET` in `.dev.vars`. Production values are stored as Sites secrets and are never committed. The admin page and all admin APIs validate the signed, HTTP-only session cookie on the server.
 
 ## Assets and fonts
 
@@ -27,7 +27,7 @@ GSAP and ScrollTrigger in app/use-studio-motion.ts: entrance sequence, scroll pa
 
 ## Requests
 
-Requests persist in D1, with server validation, email-based rate limiting and origin checks. Admin can view full submissions, filter status, paginate and save internal notes/status. The image library supports upload and removal for works and gallery, using D1 metadata and R2 file storage. Homepage imagery remains independent. Email notifications are not configured.
+Requests persist in D1, with server validation, email-based rate limiting and origin checks. Admin login is password-protected, limits repeated failures, and creates an eight-hour signed session. Admin can view full submissions, filter status, paginate and save internal notes/status. The image library supports upload and removal for works and gallery, using D1 metadata and R2 file storage. Homepage imagery remains independent. Email notifications are not configured.
 
 ## Validation
 

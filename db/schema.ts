@@ -30,3 +30,13 @@ export const inquiries = sqliteTable(
     index('idx_inquiries_email_created').on(t.email, t.createdAt),
   ],
 );
+export const adminLoginAttempts = sqliteTable(
+  'admin_login_attempts',
+  {
+    key: text('key').primaryKey(),
+    failures: integer('failures').notNull().default(0),
+    lockedUntil: integer('locked_until').notNull().default(0),
+    updatedAt: integer('updated_at').notNull(),
+  },
+  (t) => [index('idx_admin_login_attempts_updated').on(t.updatedAt)],
+);

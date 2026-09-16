@@ -1,8 +1,8 @@
 import { adminIdentity } from '@/lib/admin';
 import { database, validOrigin, privateHeaders } from '@/lib/inquiries';
 import { listPhotos, mediaBucket } from '@/lib/photos';
-export async function GET() {
-  if (!(await adminIdentity()))
+export async function GET(request: Request) {
+  if (!(await adminIdentity(request)))
     return Response.json(
       { error: 'Unauthorized' },
       { status: 403, headers: privateHeaders },
@@ -13,7 +13,7 @@ export async function GET() {
   );
 }
 export async function POST(request: Request) {
-  if (!(await adminIdentity()))
+  if (!(await adminIdentity(request)))
     return Response.json({ error: 'Unauthorized' }, { status: 403 });
   if (!validOrigin(request))
     return Response.json({ error: 'Invalid origin' }, { status: 403 });

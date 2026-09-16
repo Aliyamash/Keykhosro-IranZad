@@ -1,7 +1,7 @@
 import { adminIdentity } from '@/lib/admin';
 import { database, privateHeaders } from '@/lib/inquiries';
 export async function GET(request: Request) {
-  if (!(await adminIdentity()))
+  if (!(await adminIdentity(request)))
     return Response.json(
       { error: 'Unauthorized' },
       { status: 403, headers: privateHeaders },

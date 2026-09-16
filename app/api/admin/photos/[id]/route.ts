@@ -6,7 +6,7 @@ export async function DELETE(
   request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  if (!(await adminIdentity()) || !validOrigin(request))
+  if (!(await adminIdentity(request)) || !validOrigin(request))
     return Response.json({ error: 'Unauthorized' }, { status: 403 });
   const { id } = await context.params;
   const builtin = defaultPhotos.find((p) => p.id === id);

@@ -5,6 +5,87 @@
   color: #eee;
   font-size: 16px;
 }
+.admin-login {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 40px 6vw;
+  background:
+    linear-gradient(135deg, #101010e8, #101010 65%),
+    radial-gradient(circle at 75% 15%, #ffffff10, transparent 34%);
+  color: #eee;
+}
+.admin-login-card {
+  width: min(100%, 560px);
+  padding: clamp(28px, 5vw, 58px);
+  border: 1px solid #3b3b3b;
+  border-radius: 28px;
+  background: #181818;
+  box-shadow: 0 45px 120px #0008;
+}
+.admin-login-heading {
+  margin: 70px 0 36px;
+}
+.admin-login-heading h1 {
+  margin: 16px 0 18px;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 500;
+  line-height: 1.45;
+}
+.admin-login-heading p {
+  color: #a7a7a7;
+  line-height: 2;
+}
+.admin-login-form {
+  display: grid;
+  gap: 14px;
+}
+.admin-login-form label {
+  color: #c7c7c7;
+  font-size: 14px;
+}
+.admin-login-form input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  color: #fff;
+  background: #111;
+  border: 1px solid #4a4a4a;
+  border-radius: 13px;
+  outline: none;
+  direction: ltr;
+}
+.admin-login-form input:focus {
+  border-color: #d8d8d8;
+  box-shadow: 0 0 0 3px #ffffff12;
+}
+.admin-login-form button {
+  min-height: 56px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 13px;
+  background: #eee;
+  color: #111;
+  font-weight: 700;
+}
+.admin-login-form p[role='alert'] {
+  margin: 0;
+  color: #ffaaa3;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.admin-login-back {
+  display: inline-block;
+  margin-top: 30px;
+  color: #aaa;
+  font-size: 14px;
+}
+.admin-signout {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
 .photo-manager {
   scroll-margin-top: 24px;
   margin-top: 40px;

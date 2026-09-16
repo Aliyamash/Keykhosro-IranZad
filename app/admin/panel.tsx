@@ -35,7 +35,7 @@ const services: Record<string, string> = {
   portrait: 'پرتره و مدلینگ',
   other: 'همکاری دیگر',
 };
-export default function AdminPanel({ email }: { email: string }) {
+export default function AdminPanel() {
   const [items, setItems] = useState<Inquiry[]>([]),
     [total, setTotal] = useState(0),
     [filter, setFilter] = useState('all'),
@@ -48,6 +48,7 @@ export default function AdminPanel({ email }: { email: string }) {
     [note, setNote] = useState(''),
     [saving, setSaving] = useState(false),
     [saveError, setSaveError] = useState('');
+  const [signingOut, setSigningOut] = useState(false);
   useEffect(() => {
     document.documentElement.lang = 'fa';
     document.documentElement.dir = 'rtl';
@@ -80,6 +81,15 @@ export default function AdminPanel({ email }: { email: string }) {
     setStatus(i.status);
     setNote(i.note);
     setSaveError('');
+  }
+  async function signOut() {
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await fetch('/api/admin/session', { method: 'DELETE' });
+    } finally {
+      window.location.replace('/admin');
+    }
   }
   async function save() {
     if (!active || saving) return;
@@ -125,11 +135,18 @@ export default function AdminPanel({ email }: { email: string }) {
             کیخسرو ایرانزاد<small>مدیریت استودیو</small>
           </div>
         </a>
-        <span dir="ltr">{email}</span>
+        <span>ورود امن مدیریت</span>
         <div className="admin-header-actions">
           <a href="#photo-library">مدیریت تصاویر</a>
           <a href="/">مشاهده سایت ↗</a>
-          <a href="/signout-with-chatgpt?return_to=/">خروج</a>
+          <button
+            type="button"
+            className="admin-signout"
+            onClick={signOut}
+            disabled={signingOut}
+          >
+            {signingOut ? 'در حال خروج…' : 'خروج'}
+          </button>
         </div>
       </header>
       <section className="admin-heading">

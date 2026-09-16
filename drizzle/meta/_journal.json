@@ -15,6 +15,13 @@
       "when": 1788771111497,
       "tag": "0001_lonely_thaddeus_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789573584294,
+      "tag": "0002_graceful_terror",
+      "breakpoints": true
     }
   ]
 }
