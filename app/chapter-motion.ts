@@ -188,7 +188,7 @@ export function addChapterMotion(mm: gsap.MatchMedia, lang: string) {
   mm.add('(max-width: 760px)', () => {
     gsap.utils.toArray<HTMLElement>('.sequence-frame').forEach((el, i) => {
       gsap.from(el, {
-        x: inlineFrom * (i % 2 === 0 ? 22 : -22),
+        x: Math.sign(inlineFrom) * (i % 2 === 0 ? 22 : -22),
         y: 40,
         opacity: 0,
         duration: 1.1,

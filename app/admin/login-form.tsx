@@ -27,11 +27,15 @@ export default function AdminLogin() {
         const body = (await response.json().catch(() => null)) as {
           error?: string;
         } | null;
-        setError(
-          response.status === 429
-            ? 'تعداد تلاش‌ها زیاد بود. ۱۵ دقیقه دیگر دوباره امتحان کنید.'
-            : body?.error || 'رمز واردشده صحیح نیست.',
-        );
+        if (response.status === 429) {
+          setError('تعداد تلاش‌ها زیاد بود. ۱۵ دقیقه دیگر دوباره امتحان کنید.');
+        } else if (response.status === 401) {
+          setError('رمز واردشده صحیح نیست.');
+        } else if (response.status === 400 || response.status === 403) {
+          setError(body?.error || 'درخواست ورود معتبر نیست.');
+        } else {
+          setError('سرویس ورود موقتاً در دسترس نیست. کمی بعد دوباره تلاش کنید.');
+        }
         return;
       }
       window.location.replace('/admin');

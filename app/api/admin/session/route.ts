@@ -57,18 +57,47 @@ export async function POST(request: Request) {
   }
 
   if (!(await verifyAdminPassword(password))) {
-    const failures =
-      attempt && attempt.locked_until === 0 ? attempt.failures + 1 : 1;
-    const lockedUntil = failures >= MAX_FAILURES ? now + LOCK_DURATION : 0;
-    await db
+    const lockedUntil = now + LOCK_DURATION;
+    const updated = await db
       .prepare(
-        'INSERT INTO admin_login_attempts (key, failures, locked_until, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(key) DO UPDATE SET failures=excluded.failures, locked_until=excluded.locked_until, updated_at=excluded.updated_at',
+        `INSERT INTO admin_login_attempts (key, failures, locked_until, updated_at)
+         VALUES (?, 1, 0, ?)
+         ON CONFLICT(key) DO UPDATE SET
+           failures = CASE
+             WHEN admin_login_attempts.locked_until > ? THEN admin_login_attempts.failures
+             WHEN admin_login_attempts.locked_until > 0 THEN 1
+             WHEN admin_login_attempts.failures + 1 >= ? THEN 0
+             ELSE admin_login_attempts.failures + 1
+           END,
+           locked_until = CASE
+             WHEN admin_login_attempts.locked_until > ? THEN admin_login_attempts.locked_until
+             WHEN admin_login_attempts.locked_until > 0 THEN 0
+             WHEN admin_login_attempts.failures + 1 >= ? THEN ?
+             ELSE 0
+           END,
+           updated_at = excluded.updated_at
+         RETURNING failures, locked_until`,
       )
-      .bind(key, failures >= MAX_FAILURES ? 0 : failures, lockedUntil, now)
-      .run();
+      .bind(key, now, now, MAX_FAILURES, now, MAX_FAILURES, lockedUntil)
+      .first<{ failures: number; locked_until: number }>();
+    const isLocked = Boolean(updated && updated.locked_until > now);
     return Response.json(
-      { error: 'رمز واردشده صحیح نیست.' },
-      { status: failures >= MAX_FAILURES ? 429 : 401, headers: privateHeaders },
+      {
+        error: isLocked
+          ? 'تلاش‌های ورود موقتاً محدود شده است.'
+          : 'رمز واردشده صحیح نیست.',
+      },
+      {
+        status: isLocked ? 429 : 401,
+        headers: isLocked
+          ? {
+              ...privateHeaders,
+              'Retry-After': String(
+                Math.ceil(((updated?.locked_until ?? lockedUntil) - now) / 1000),
+              ),
+            }
+          : privateHeaders,
+      },
     );
   }
 

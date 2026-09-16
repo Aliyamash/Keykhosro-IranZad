@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   },
   description:
     'استودیو کیخسرو ایرانزاد — عکاسی، مد و روایت تصویری. Keykhosro Iranzad — photography & visual direction.',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
 };
 export default function RootLayout({
   children,
