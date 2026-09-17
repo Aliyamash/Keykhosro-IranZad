@@ -129,10 +129,16 @@ export function clearAdminSessionCookie() {
 }
 
 export async function adminClientKey(request: Request) {
-  const address =
+  const forwardedAddress =
+    request.headers.get('x-vercel-forwarded-for') ??
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  const edgeAddress =
     request.headers.get('cf-connecting-ip') ??
-    request.headers.get('x-real-ip') ??
-    'unknown';
+    request.headers.get('x-real-ip');
+  // Combining the client and edge addresses keeps rate limits stable behind
+  // the Vercel -> Cloudflare proxy without trusting a forwarded value alone.
+  const address =
+    [forwardedAddress, edgeAddress].filter(Boolean).join('|') || 'unknown';
   const secret = String(env.ADMIN_SESSION_SECRET ?? '');
   const digest = await crypto.subtle.digest(
     'SHA-256',

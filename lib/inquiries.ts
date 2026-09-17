@@ -1,4 +1,10 @@
 import { env } from 'cloudflare:workers';
+
+const publicOrigins = new Set([
+  'https://keykhosro-iranzad.com',
+  'https://www.keykhosro-iranzad.com',
+]);
+
 export type Inquiry = {
   id: string;
   reference: string;
@@ -19,6 +25,15 @@ export function database() {
 }
 export function validOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  return origin !== null && origin === new URL(request.url).origin;
+  if (!origin) return false;
+  try {
+    const normalizedOrigin = new URL(origin).origin;
+    return (
+      normalizedOrigin === new URL(request.url).origin ||
+      publicOrigins.has(normalizedOrigin)
+    );
+  } catch {
+    return false;
+  }
 }
 export const privateHeaders = { 'Cache-Control': 'no-store' };
