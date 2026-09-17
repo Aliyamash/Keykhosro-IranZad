@@ -3,7 +3,8 @@ import { headers } from 'next/headers';
 
 const COOKIE_NAME = 'ki_admin_session';
 const SESSION_TTL_SECONDS = 8 * 60 * 60;
-const PASSWORD_ITERATIONS = 120_000;
+// Cloudflare Workers currently caps Web Crypto PBKDF2 at 100,000 rounds.
+const PASSWORD_ITERATIONS = 100_000;
 
 function bytesToHex(bytes: Uint8Array) {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
