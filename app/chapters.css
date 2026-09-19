@@ -96,6 +96,11 @@
   font: 500 24px var(--font-ui);
   color: white;
 }
+.frame-registration svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.35;
+}
 .sequence-frame figcaption {
   display: flex;
   justify-content: space-between;
@@ -353,6 +358,11 @@ html[lang='fa'] .sequence-line i {
   font: 500 12px var(--font-ui);
   letter-spacing: 0.08em;
 }
+.contact-sheet figcaption svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.5;
+}
 .process-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -394,6 +404,21 @@ html[lang='fa'] .sequence-line i {
 .process-step > span {
   font: 500 12px var(--font-ui);
   color: #aaa;
+}
+.process-step .process-step-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffff2b;
+  border-radius: 50%;
+  background: #ffffff08;
+  color: #d8d7d2;
+}
+.process-step-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.45;
 }
 .process-step h3 {
   font-size: clamp(25px, 3vw, 45px);

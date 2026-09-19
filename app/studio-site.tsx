@@ -1,5 +1,21 @@
 'use client';
 import { useLayoutEffect, useRef, useState } from 'react';
+import {
+  Aperture,
+  ArrowDown,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  Expand,
+  HeartHandshake,
+  House,
+  Images,
+  Languages,
+  MessageCircle,
+  Sparkles,
+  UserRound,
+  X,
+} from 'lucide-react';
 import { useStudioMotion } from './use-studio-motion';
 import { InquiryForm } from './inquiry-form';
 import { defaultPhotos, type Photo } from '@/lib/photo-types';
@@ -79,7 +95,7 @@ export default function StudioSite({
             aria-current={page === 'home' ? 'page' : undefined}
             onClick={() => setMenuOpen(false)}
           >
-            <span className="nav-index">01</span>
+            <House className="nav-icon" aria-hidden="true" />
             <span>{t('خانه', 'Home')}</span>
           </a>
           <a
@@ -87,14 +103,14 @@ export default function StudioSite({
             aria-current={page === 'works' ? 'page' : undefined}
             onClick={() => setMenuOpen(false)}
           >
-            <span className="nav-index">02</span>
+            <Images className="nav-icon" aria-hidden="true" />
             <span>{t('آثار', 'Selected work')}</span>
           </a>
           <a
             href={page === 'home' ? '#about' : '/#about'}
             onClick={() => setMenuOpen(false)}
           >
-            <span className="nav-index">03</span>
+            <UserRound className="nav-icon" aria-hidden="true" />
             <span>{t('درباره من', 'About me')}</span>
           </a>
           <a
@@ -102,7 +118,7 @@ export default function StudioSite({
             aria-current={page === 'studio' ? 'page' : undefined}
             onClick={() => setMenuOpen(false)}
           >
-            <span className="nav-index">04</span>
+            <MessageCircle className="nav-icon" aria-hidden="true" />
             <span>{t('استودیو / تماس', 'Studio / Contact')}</span>
           </a>
         </nav>
@@ -115,7 +131,8 @@ export default function StudioSite({
             }}
             aria-label={t('Switch to English', 'تغییر زبان به فارسی')}
           >
-            {fa ? 'EN' : 'فا'} <span>↗</span>
+            <Languages aria-hidden="true" />
+            <span>{fa ? 'EN' : 'فا'}</span>
           </button>
           <button
             type="button"
@@ -168,13 +185,14 @@ export default function StudioSite({
                 <span>{t('فراتر از قاب', 'BEYOND THE FRAME')}</span>
                 <a href="#intro">
                   {t('برای کشف، اسکرول کنید', 'SCROLL TO EXPLORE')}{' '}
-                  <span>↓</span>
+                  <ArrowDown aria-hidden="true" />
                 </a>
-                <span>01 — 08</span>
               </div>
             </section>
             <section id="intro" className="intro">
-              <span className="eyebrow">01 / {t('استودیو', 'THE STUDIO')}</span>
+              <span className="eyebrow icon-label">
+                <Aperture aria-hidden="true" /> {t('استودیو', 'THE STUDIO')}
+              </span>
               <h2>
                 {t('روایت در سکوت.', 'A story in silence.')}
                 <br />
@@ -182,12 +200,13 @@ export default function StudioSite({
               </h2>
               <p>{c(siteCopy.storyInSilence)}</p>
               <a href="/works" className="text-link">
-                {t('منتخب آثار', 'EXPLORE SELECTED WORK')} <span>↗</span>
+                {t('منتخب آثار', 'EXPLORE SELECTED WORK')}{' '}
+                <ArrowUpRight aria-hidden="true" />
               </a>
             </section>
             <section className="editorial-stage">
-              <span className="eyebrow stage-label">
-                02 / {t('منتخب آثار', 'SELECTED WORK')}
+              <span className="eyebrow stage-label icon-label">
+                <Images aria-hidden="true" /> {t('منتخب آثار', 'SELECTED WORK')}
               </span>
               <div className="stage-photo stage-one">
                 <img
@@ -207,7 +226,8 @@ export default function StudioSite({
               <div className="stage-caption">
                 <span>{c(siteCopy.lightSilence)}</span>
                 <a href="/works">
-                  {t('مشاهده مجموعه', 'VIEW THE COLLECTION')} ↗
+                  {t('مشاهده مجموعه', 'VIEW THE COLLECTION')}{' '}
+                  <ArrowUpRight aria-hidden="true" />
                 </a>
               </div>
             </section>
@@ -224,8 +244,8 @@ export default function StudioSite({
                 KEYKHOSRO — IRANZAD
               </div>
               <div className="about-copy">
-                <span className="eyebrow about-kicker">
-                  07 / {t('درباره من', 'ABOUT ME')}
+                <span className="eyebrow about-kicker icon-label">
+                  <UserRound aria-hidden="true" /> {t('درباره من', 'ABOUT ME')}
                 </span>
                 <h2 id="about-title">
                   <span>{t('مردِ پشتِ', 'The man behind')}</span>
@@ -252,7 +272,8 @@ export default function StudioSite({
                   </div>
                 </dl>
                 <a href="/studio#request" className="text-link about-link">
-                  {t('شروع یک گفت‌وگو', 'START A CONVERSATION')} <span>↗</span>
+                  {t('شروع یک گفت‌وگو', 'START A CONVERSATION')}{' '}
+                  <ArrowUpRight aria-hidden="true" />
                 </a>
               </div>
               <div
@@ -306,8 +327,9 @@ export default function StudioSite({
                 <figcaption>KI / ART &amp; HUMANITY</figcaption>
               </figure>
               <div className="impact-copy">
-                <span className="eyebrow">
-                  08 / {t('هنر و انسانیت', 'ART & HUMANITY')}
+                <span className="eyebrow icon-label">
+                  <HeartHandshake aria-hidden="true" />{' '}
+                  {t('هنر و انسانیت', 'ART & HUMANITY')}
                 </span>
                 <h2 id="impact-title">
                   <span>{t('نگاهی', 'Vision with')}</span>
@@ -332,12 +354,14 @@ export default function StudioSite({
               </div>
             </section>
             <section className="home-close">
-              <span className="eyebrow">
-                09 / {t('یک آغاز تازه', 'A NEW BEGINNING')}
+              <span className="eyebrow icon-label">
+                <Sparkles aria-hidden="true" />{' '}
+                {t('یک آغاز تازه', 'A NEW BEGINNING')}
               </span>
               <p>{c(siteCopy.nextStory)}</p>
               <a href="/studio#request" className="big-link">
-                {t('بیایید خلق کنیم.', 'Let’s create.')} <span>↗</span>
+                {t('بیایید خلق کنیم.', 'Let’s create.')}{' '}
+                <ArrowUpRight aria-hidden="true" />
               </a>
             </section>
           </>
@@ -394,7 +418,9 @@ export default function StudioSite({
                         ][i % 4],
                       }}
                     />
-                    <span className="image-open">↗</span>
+                    <span className="image-open" aria-hidden="true">
+                      <Expand />
+                    </span>
                   </div>
                   <div className="work-caption">
                     <span>{t(work.title_fa, work.title_en)}</span>
@@ -415,7 +441,8 @@ export default function StudioSite({
             <section className="home-close">
               <span className="eyebrow">{t('فصل بعدی', 'NEXT CHAPTER')}</span>
               <a href="/studio#request" className="big-link">
-                {t('پروژه بعدی، با شما.', 'Your story, next.')} <span>↗</span>
+                {t('پروژه بعدی، با شما.', 'Your story, next.')}{' '}
+                <ArrowUpRight aria-hidden="true" />
               </a>
             </section>
             <Dialog
@@ -432,7 +459,7 @@ export default function StudioSite({
                       : t('اثر', 'Photograph')}
                   </DialogTitle>
                   <DialogClose className="plain-button">
-                    {t('بستن', 'CLOSE')} ×
+                    {t('بستن', 'CLOSE')} <X aria-hidden="true" />
                   </DialogClose>
                 </div>
                 <img
@@ -450,14 +477,16 @@ export default function StudioSite({
                       )
                     }
                   >
-                    {t('قبلی', 'PREVIOUS')} ←
+                    <ChevronLeft aria-hidden="true" />{' '}
+                    {t('قبلی', 'PREVIOUS')}
                   </button>
                   <button
                     onClick={() =>
                       setActive(((active ?? 0) + 1) % works.length)
                     }
                   >
-                    → {t('بعدی', 'NEXT')}
+                    {t('بعدی', 'NEXT')}{' '}
+                    <ChevronRight aria-hidden="true" />
                   </button>
                 </div>
               </DialogContent>
@@ -476,7 +505,8 @@ export default function StudioSite({
               <div className="heading-aside">
                 <p>{c(siteCopy.behindImage)}</p>
                 <a href="#request" className="text-link">
-                  {t('درخواست همکاری', 'START A PROJECT')} ↓
+                  {t('درخواست همکاری', 'START A PROJECT')}{' '}
+                  <ArrowDown aria-hidden="true" />
                 </a>
               </div>
             </section>
@@ -513,7 +543,10 @@ export default function StudioSite({
       <footer className="site-footer">
         <span>{t('کیخسرو ایرانزاد', 'KEYKHOSRO IRANZAD')}</span>
         <span>© {new Date().getFullYear()}</span>
-        <a href="/studio">{t('شروع یک همکاری', 'START A CONVERSATION')} ↗</a>
+        <a href="/studio">
+          {t('شروع یک همکاری', 'START A CONVERSATION')}{' '}
+          <ArrowUpRight aria-hidden="true" />
+        </a>
       </footer>
     </>
   );

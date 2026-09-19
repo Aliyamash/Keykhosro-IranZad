@@ -166,6 +166,18 @@ button:focus-visible {
   color: #111;
   background: #f1f1ee;
 }
+.primary-nav .nav-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  stroke-width: 1.7;
+  color: #8d8d89;
+  transition: color 0.3s ease;
+}
+.primary-nav a:hover .nav-icon,
+.primary-nav a[aria-current='page'] .nav-icon {
+  color: #111;
+}
 .nav-index {
   font-family: var(--font-ui);
   font-size: 10px;
@@ -204,6 +216,11 @@ button:focus-visible {
 .language:hover {
   color: #111;
   background: #f1f1ee;
+}
+.language svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
 }
 .menu-toggle {
   display: none;
@@ -311,7 +328,12 @@ button:focus-visible {
 }
 .hero-bottom a {
   display: flex;
+  align-items: center;
   gap: 25px;
+}
+.hero-bottom a svg {
+  width: 16px;
+  height: 16px;
 }
 .intro {
   padding: 150px 12vw 130px;
@@ -320,6 +342,17 @@ button:focus-visible {
 .eyebrow {
   font-size: 12px;
   color: var(--muted);
+}
+.icon-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-label svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  stroke-width: 1.6;
 }
 .intro h2 {
   font-size: clamp(38px, 5vw, 80px);
@@ -339,6 +372,7 @@ button:focus-visible {
 }
 .text-link {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #777;
   padding: 20px 0;
@@ -346,8 +380,15 @@ button:focus-visible {
   margin-top: 45px;
   font-size: 14px;
 }
-.text-link span {
-  font-size: 24px;
+.text-link svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  stroke-width: 1.5;
+  transition: transform 0.35s ease;
+}
+.text-link:hover svg {
+  transform: translate(4px, -4px);
 }
 .site-footer {
   border-top: 1px solid var(--border);
@@ -357,6 +398,15 @@ button:focus-visible {
   gap: 20px;
   font-size: 12px;
   color: #aaa;
+}
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.site-footer svg {
+  width: 15px;
+  height: 15px;
 }
 html[lang='en'] .hero-title {
   font-family: var(--font-en);
@@ -932,12 +982,14 @@ html[lang='en'] .impact-copy h2 {
   border-bottom: 1px solid #666;
   padding-bottom: 30px;
 }
-.big-link > span {
-  font-family: var(--font-ui);
-  font-size: 0.7em;
+.big-link > svg {
+  width: 0.7em;
+  height: 0.7em;
+  flex: 0 0 auto;
+  stroke-width: 1.2;
   transition: transform 0.4s;
 }
-.big-link:hover > span {
+.big-link:hover > svg {
   transform: translate(12px, -12px);
 }
 .page-heading {
@@ -1029,6 +1081,11 @@ html[lang='en'] .impact-copy h2 {
   background: #0002;
   transition: transform 0.5s;
 }
+.image-open svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.4;
+}
 .work-card:hover .image-open {
   transform: rotate(45deg);
 }
@@ -1074,6 +1131,18 @@ html[lang='en'] .impact-copy h2 {
   border: 0;
   padding: 10px;
   font-size: 13px;
+}
+.plain-button,
+.dialog-arrows button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.plain-button svg,
+.dialog-arrows button svg {
+  width: 16px;
+  height: 16px;
 }
 .studio-panorama {
   height: 75svh;
@@ -1153,6 +1222,11 @@ html[lang='en'] .impact-copy h2 {
 .inquiry-heading-mark {
   font-size: 30px;
   color: #bcbcbc;
+}
+.inquiry-heading-mark svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.25;
 }
 .inquiry-form label,
 .form-select {
@@ -1269,6 +1343,20 @@ html[lang='en'] .impact-copy h2 {
   background: #fff;
   box-shadow: 0 6px 24px #ffffff12;
 }
+.inquiry-form .submit-button > svg {
+  width: 42px;
+  height: 42px;
+  padding: 11px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #171717;
+  color: #eee;
+  stroke-width: 1.6;
+  transition: transform 0.3s;
+}
+.inquiry-form .submit-button:hover:not(:disabled) > svg {
+  transform: translate(3px, -3px);
+}
 .submit-button:hover:not(:disabled) > span {
   transform: rotate(45deg);
 }
@@ -1305,6 +1393,11 @@ html[lang='en'] .impact-copy h2 {
 }
 .form-success > span {
   font-size: 36px;
+}
+.form-success > span svg {
+  width: 34px;
+  height: 34px;
+  stroke-width: 1.5;
 }
 .form-success h3 {
   font-size: 25px;

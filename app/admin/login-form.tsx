@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
+import { ArrowUpRight, LockKeyhole, LogIn } from 'lucide-react';
 
 export default function AdminLogin() {
   const [password, setPassword] = useState('');
@@ -56,7 +57,9 @@ export default function AdminLogin() {
           </div>
         </a>
         <div className="admin-login-heading">
-          <span className="eyebrow">PRIVATE / STUDIO</span>
+          <span className="eyebrow icon-label">
+            <LockKeyhole aria-hidden="true" /> PRIVATE / STUDIO
+          </span>
           <h1 id="admin-login-title">ورود به پنل مدیریت</h1>
           <p>برای مشاهده درخواست‌ها و مدیریت تصاویر، رمز ورود را وارد کنید.</p>
         </div>
@@ -75,11 +78,12 @@ export default function AdminLogin() {
           />
           {error && <p role="alert">{error}</p>}
           <button type="submit" disabled={submitting || !password}>
+            <LogIn aria-hidden="true" />{' '}
             {submitting ? 'در حال بررسی…' : 'ورود به پنل'}
           </button>
         </form>
         <a href="/" className="admin-login-back">
-          بازگشت به سایت ↗
+          بازگشت به سایت <ArrowUpRight aria-hidden="true" />
         </a>
       </section>
     </main>

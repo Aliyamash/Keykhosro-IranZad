@@ -36,6 +36,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import {
+  Banknote,
+  BriefcaseBusiness,
+  CircleDollarSign,
+  CreditCard,
+  Download,
+  Eye,
+  FolderOpen,
+  Plus,
+  Save,
+  WalletCards,
+  X,
+} from 'lucide-react';
 
 const statusNames: Record<ProjectStatus | 'all', string> = {
   all: 'همه پروژه‌ها',
@@ -332,26 +345,38 @@ export default function AccountingManager() {
           <p>قراردادها، دریافتی‌ها و یادداشت‌های داخلی در یک دفتر.</p>
         </div>
         <button className="accounting-primary" type="button" onClick={openNew}>
-          پروژه جدید ＋
+          <Plus aria-hidden="true" /> پروژه جدید
         </button>
       </div>
 
       <div className="accounting-summary" aria-label="خلاصه مالی فهرست">
         <article>
+          <span className="summary-icon" aria-hidden="true">
+            <BriefcaseBusiness />
+          </span>
           <span>پروژه فعال</span>
           <strong>{financialItems.length.toLocaleString('fa-IR')}</strong>
         </article>
         <article>
+          <span className="summary-icon" aria-hidden="true">
+            <CircleDollarSign />
+          </span>
           <span>ارزش قراردادها</span>
           <strong>{money.format(totals.quoted)}</strong>
           <small>تومان</small>
         </article>
         <article>
+          <span className="summary-icon" aria-hidden="true">
+            <WalletCards />
+          </span>
           <span>دریافت‌شده</span>
           <strong>{money.format(totals.paid)}</strong>
           <small>تومان</small>
         </article>
         <article className="accounting-balance">
+          <span className="summary-icon" aria-hidden="true">
+            <Banknote />
+          </span>
           <span>مانده دریافت</span>
           <strong>{money.format(totals.remaining)}</strong>
           <small>تومان</small>
@@ -389,7 +414,7 @@ export default function AccountingManager() {
             onClick={exportCsv}
             disabled={items.length === 0}
           >
-            خروجی Excel / CSV ↓
+            <Download aria-hidden="true" /> خروجی Excel / CSV
           </button>
         </div>
 
@@ -401,6 +426,7 @@ export default function AccountingManager() {
           <output className="admin-empty">در حال دریافت دفتر پروژه‌ها…</output>
         ) : items.length === 0 ? (
           <div className="admin-empty">
+            <FolderOpen aria-hidden="true" />
             <h3>هنوز پروژه‌ای در این فهرست نیست.</h3>
             <p>
               پروژه جدید بسازید یا یک درخواست همکاری را به پروژه تبدیل کنید.
@@ -450,7 +476,7 @@ export default function AccountingManager() {
                         className="plain-button"
                         onClick={() => openProject(item)}
                       >
-                        پرونده ↗
+                        <Eye aria-hidden="true" /> پرونده
                       </button>
                     </TableCell>
                   </TableRow>
@@ -477,7 +503,7 @@ export default function AccountingManager() {
               <DialogDescription dir="ltr">{activeReference}</DialogDescription>
             </div>
             <DialogClose className="plain-button" disabled={saving}>
-              بستن ×
+              بستن <X aria-hidden="true" />
             </DialogClose>
           </div>
 
@@ -617,6 +643,7 @@ export default function AccountingManager() {
               />
             </div>
             <button className="submit-button" type="submit" disabled={saving}>
+              <Save aria-hidden="true" />{' '}
               {saving ? 'در حال ذخیره…' : 'ذخیره پرونده پروژه'}
             </button>
           </form>
@@ -698,7 +725,8 @@ export default function AccountingManager() {
                   type="submit"
                   disabled={paymentSaving}
                 >
-                  {paymentSaving ? 'در حال ثبت…' : 'ثبت پرداخت ＋'}
+                  <CreditCard aria-hidden="true" />{' '}
+                  {paymentSaving ? 'در حال ثبت…' : 'ثبت پرداخت'}
                 </button>
               </form>
             </section>

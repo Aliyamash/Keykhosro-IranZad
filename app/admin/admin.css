@@ -419,6 +419,34 @@ body:has(.admin-login) {
   transition: 150ms ease;
 }
 
+.admin-app .plain-button,
+.admin-dialog .plain-button,
+.photo-manager .plain-button,
+.accounting-primary,
+.submit-button,
+.admin-login-form button,
+.admin-pagination button,
+.admin-empty a,
+.admin-login-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-app button svg,
+.admin-app a svg,
+.admin-dialog button svg,
+.photo-manager button svg,
+.photo-manager a svg,
+.admin-login button svg,
+.admin-login a svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  stroke-width: 1.8;
+}
+
 .admin-app .plain-button:hover,
 .admin-dialog .plain-button:hover,
 .photo-manager .plain-button:hover {
@@ -557,6 +585,14 @@ body:has(.admin-login) {
   line-height: 2;
 }
 
+.admin-empty > svg {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 10px;
+  color: var(--admin-accent);
+  stroke-width: 1.35;
+}
+
 .admin-empty h2,
 .admin-empty h3 {
   margin-bottom: 7px;
@@ -643,6 +679,24 @@ body:has(.admin-login) {
   background: linear-gradient(145deg, #1b1730, #100d1c);
 }
 
+.accounting-summary .summary-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #4c416d;
+  border-radius: 10px;
+  background: #241d42;
+  color: #b9afff;
+}
+
+.accounting-summary .summary-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.65;
+}
+
 .accounting-summary span,
 .accounting-summary small {
   display: block;
@@ -667,6 +721,12 @@ body:has(.admin-login) {
 }
 
 .accounting-summary .accounting-balance strong {
+  color: #82d9ff;
+}
+
+.accounting-summary .accounting-balance .summary-icon {
+  border-color: #416687;
+  background: #142c47;
   color: #82d9ff;
 }
 
@@ -763,6 +823,12 @@ body:has(.admin-login) {
 .media-file > span:first-child {
   color: var(--admin-accent);
   font-size: 32px;
+}
+
+.media-file > span:first-child svg {
+  width: 36px;
+  height: 36px;
+  stroke-width: 1.25;
 }
 
 .media-file input {
@@ -1097,7 +1163,6 @@ body:has(.admin-login) {
 
 .admin-login-back {
   margin-top: 28px;
-  display: inline-block;
   color: var(--admin-muted);
   font-size: 13px;
 }

@@ -1,5 +1,17 @@
 import { localized, siteCopy } from './site-copy';
 import { siteMedia } from './site-media';
+import {
+  Aperture,
+  ArrowUpRight,
+  Crosshair,
+  Focus,
+  GalleryHorizontalEnd,
+  Lightbulb,
+  MessageCircle,
+  ScanLine,
+  Sparkles,
+  SunMedium,
+} from 'lucide-react';
 type ChapterProps = { fa: boolean };
 
 export function FrameSequence({ fa }: ChapterProps) {
@@ -37,8 +49,9 @@ export function FrameSequence({ fa }: ChapterProps) {
       aria-labelledby="sequence-title"
     >
       <header className="chapter-heading">
-        <span className="eyebrow">
-          03 / {fa ? 'مطالعات تصویری' : 'VISUAL STUDIES'}
+        <span className="eyebrow icon-label">
+          <GalleryHorizontalEnd aria-hidden="true" />{' '}
+          {fa ? 'مطالعات تصویری' : 'VISUAL STUDIES'}
         </span>
         <h2 id="sequence-title">
           {fa ? 'میانِ قاب‌ها.' : 'Between the frames.'}
@@ -61,7 +74,7 @@ export function FrameSequence({ fa }: ChapterProps) {
                   height={1920}
                 />
                 <span className="frame-registration" aria-hidden="true">
-                  +
+                  <Crosshair />
                 </span>
               </div>
               <figcaption dir={fa ? 'rtl' : 'ltr'}>
@@ -91,8 +104,9 @@ export function MovingManifesto({ fa }: ChapterProps) {
     : ['An', 'image', 'begins', 'in', 'silence.'];
   return (
     <section className="manifesto-section" aria-labelledby="manifesto-title">
-      <span className="eyebrow">
-        04 / {fa ? 'نگاه استودیو' : 'THE STUDIO’S EYE'}
+      <span className="eyebrow icon-label">
+        <Sparkles aria-hidden="true" />{' '}
+        {fa ? 'نگاه استودیو' : 'THE STUDIO’S EYE'}
       </span>
       <h2 id="manifesto-title">
         {words.map((word, i) => (
@@ -125,8 +139,8 @@ export function ApertureStudy({ fa }: ChapterProps) {
           height={1920}
         />
       </div>
-      <span className="eyebrow aperture-label">
-        05 / {fa ? 'نزدیک‌تر' : 'CLOSER'}
+      <span className="eyebrow aperture-label icon-label">
+        <Aperture aria-hidden="true" /> {fa ? 'نزدیک‌تر' : 'CLOSER'}
       </span>
       <h2 id="aperture-title">
         <span>{fa ? 'درون' : 'Inside'}</span>
@@ -144,8 +158,9 @@ export function Diptych({ fa }: ChapterProps) {
   return (
     <section className="diptych-section" aria-labelledby="diptych-title">
       <header className="chapter-heading">
-        <span className="eyebrow">
-          06 / {fa ? 'دو نگاه' : 'TWO PERSPECTIVES'}
+        <span className="eyebrow icon-label">
+          <ScanLine aria-hidden="true" />{' '}
+          {fa ? 'دو نگاه' : 'TWO PERSPECTIVES'}
         </span>
         <h2 id="diptych-title">
           {fa ? 'روایت ناتمام.' : 'An unfinished story.'}
@@ -190,7 +205,8 @@ export function Diptych({ fa }: ChapterProps) {
       <div className="diptych-copy">
         <p>{localized(fa, siteCopy.space)}</p>
         <a className="text-link" href="/works">
-          {fa ? 'تمام آثار' : 'ALL SELECTED WORK'} ↗
+          {fa ? 'تمام آثار' : 'ALL SELECTED WORK'}{' '}
+          <ArrowUpRight aria-hidden="true" />
         </a>
       </div>
     </section>
@@ -249,7 +265,9 @@ export function ContactSheet({
             </div>
             <figcaption>
               <span>{fa ? frame.title_fa : frame.title_en}</span>
-              <span>+ +</span>
+              <span aria-hidden="true">
+                <Focus />
+              </span>
             </figcaption>
           </figure>
         ))}
@@ -262,6 +280,7 @@ export function StudioProcess({ fa }: ChapterProps) {
   const titles = fa
     ? ['گفت‌وگو و ایده', 'نور و اجرا', 'انتخاب و روایت']
     : ['Dialogue & concept', 'Light & execution', 'Selection & story'];
+  const stepIcons = [MessageCircle, SunMedium, Lightbulb];
   return (
     <section className="process-section" aria-labelledby="process-title">
       <div className="process-heading">
@@ -287,14 +306,19 @@ export function StudioProcess({ fa }: ChapterProps) {
         </div>
       </div>
       <div className="process-steps">
-        {titles.map((title, i) => (
-          <article className="process-step" key={i}>
-            <span>0{i + 1}</span>
-            <h3>{title}</h3>
-            <p>{localized(fa, siteCopy.processSteps[i])}</p>
-            <div className="process-rule" aria-hidden="true" />
-          </article>
-        ))}
+        {titles.map((title, i) => {
+          const StepIcon = stepIcons[i];
+          return (
+            <article className="process-step" key={title}>
+              <span className="process-step-icon" aria-hidden="true">
+                <StepIcon />
+              </span>
+              <h3>{title}</h3>
+              <p>{localized(fa, siteCopy.processSteps[i])}</p>
+              <div className="process-rule" aria-hidden="true" />
+            </article>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 'use client';
 import { useState, type FormEvent } from 'react';
+import { ArrowUpRight, Check, Send } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -39,13 +40,16 @@ export function InquiryForm({ lang }: { lang: 'fa' | 'en' }) {
   if (state === 'success')
     return (
       <div className="form-success" role="status">
-        <span>✓</span>
+        <span aria-hidden="true">
+          <Check />
+        </span>
         <h3>{t('درخواست شما ثبت شد.', 'Your request is received.')}</h3>
         <p>
           {t('کد پیگیری', 'REFERENCE')} <b dir="ltr">{ref}</b>
         </p>
         <button className="text-link" onClick={() => setState('idle')}>
-          {t('درخواست جدید', 'NEW REQUEST')} ↗
+          {t('درخواست جدید', 'NEW REQUEST')}{' '}
+          <ArrowUpRight aria-hidden="true" />
         </button>
       </div>
     );
@@ -56,7 +60,7 @@ export function InquiryForm({ lang }: { lang: 'fa' | 'en' }) {
           {t('درخواست همکاری', 'PROJECT INQUIRY')}
         </span>
         <span className="inquiry-heading-mark" aria-hidden="true">
-          ↗
+          <Send />
         </span>
       </div>
       <label>
@@ -172,7 +176,7 @@ export function InquiryForm({ lang }: { lang: 'fa' | 'en' }) {
         {state === 'sending'
           ? t('در حال ارسال…', 'SENDING…')
           : t('ارسال درخواست', 'SEND INQUIRY')}{' '}
-        <span>↗</span>
+        <Send aria-hidden="true" />
       </button>
     </form>
   );

@@ -1,5 +1,14 @@
 'use client';
 import { useEffect, useState, type FormEvent } from 'react';
+import {
+  ArrowUpRight,
+  Check,
+  ImagePlus,
+  RefreshCw,
+  Trash2,
+  Upload,
+  X,
+} from 'lucide-react';
 import type { Photo } from '@/lib/photo-types';
 import {
   Select,
@@ -112,7 +121,7 @@ export default function PhotoManager() {
           </p>
         </div>
         <a className="plain-button" href="/works">
-          مشاهده آثار ↗
+          مشاهده آثار <ArrowUpRight aria-hidden="true" />
         </a>
       </header>
       <div className="media-layout">
@@ -138,7 +147,9 @@ export default function PhotoManager() {
             {preview ? (
               <img src={preview} alt="پیش‌نمایش عکس انتخاب‌شده" />
             ) : (
-              <span aria-hidden="true">＋</span>
+              <span aria-hidden="true">
+                <ImagePlus />
+              </span>
             )}
             <span>انتخاب عکس</span>
             <input
@@ -171,10 +182,10 @@ export default function PhotoManager() {
             disabled={busy}
           />
           <button className="submit-button" disabled={busy || !file}>
+            <Upload aria-hidden="true" />{' '}
             {busy
               ? 'در حال انجام…'
-              : 'افزودن به ' + (section === 'works' ? 'آثار' : 'گالری')}{' '}
-            <span>↗</span>
+              : 'افزودن به ' + (section === 'works' ? 'آثار' : 'گالری')}
           </button>
         </form>
         <div className="media-collection" aria-busy={loading}>
@@ -190,7 +201,7 @@ export default function PhotoManager() {
                 void load();
               }}
             >
-              تازه‌سازی ↻
+              <RefreshCw aria-hidden="true" /> تازه‌سازی
             </button>
           </div>
           {loading ? (
@@ -215,7 +226,7 @@ export default function PhotoManager() {
                           setPending(p);
                         }}
                       >
-                        حذف عکس
+                        <Trash2 aria-hidden="true" /> حذف عکس
                       </button>
                     </div>
                   </article>
@@ -257,9 +268,10 @@ export default function PhotoManager() {
             onClick={() => setPending(null)}
             disabled={busy}
           >
-            انصراف
+            <X aria-hidden="true" /> انصراف
           </button>
           <button className="submit-button" onClick={remove} disabled={busy}>
+            <Check aria-hidden="true" />{' '}
             {busy ? 'در حال حذف…' : 'تأیید حذف'}
           </button>
         </AlertDialogContent>

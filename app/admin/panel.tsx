@@ -1,6 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ExternalLink, Images, Inbox, LogOut, WalletCards } from 'lucide-react';
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Eye,
+  FolderPlus,
+  Images,
+  Inbox,
+  LogOut,
+  RefreshCw,
+  Save,
+  WalletCards,
+  X,
+} from 'lucide-react';
 import type { Inquiry } from '@/lib/inquiries';
 import PhotoManager from './photo-manager';
 import AccountingManager from './accounting-manager';
@@ -308,7 +322,7 @@ export default function AdminPanel() {
                     disabled={loading}
                     onClick={() => setRefresh((n) => n + 1)}
                   >
-                    به‌روزرسانی ↻
+                    <RefreshCw aria-hidden="true" /> به‌روزرسانی
                   </button>
                 </div>
                 <div className="admin-table-scroll">
@@ -324,7 +338,9 @@ export default function AdminPanel() {
                     <div className="admin-empty">
                       <h2>هنوز درخواستی در این فهرست نیست.</h2>
                       <p>درخواست‌های فرم همکاری اینجا نمایش داده می‌شوند.</p>
-                      <a href="/studio#request">مشاهده فرم همکاری ↗</a>
+                      <a href="/studio#request">
+                        مشاهده فرم همکاری <ArrowUpRight aria-hidden="true" />
+                      </a>
                     </div>
                   ) : (
                     <Table className="admin-table">
@@ -368,7 +384,7 @@ export default function AdminPanel() {
                                 className="plain-button"
                                 onClick={() => open(i)}
                               >
-                                مشاهده
+                                <Eye aria-hidden="true" /> مشاهده
                               </button>
                             </TableCell>
                           </TableRow>
@@ -382,7 +398,7 @@ export default function AdminPanel() {
                     disabled={page === 1}
                     onClick={() => setPage((p) => p - 1)}
                   >
-                    صفحه قبل
+                    <ChevronRight aria-hidden="true" /> صفحه قبل
                   </button>
                   <span>
                     صفحه {page} از {Math.max(1, Math.ceil(total / 30))}
@@ -391,7 +407,7 @@ export default function AdminPanel() {
                     disabled={page * 30 >= total}
                     onClick={() => setPage((p) => p + 1)}
                   >
-                    صفحه بعد
+                    صفحه بعد <ChevronLeft aria-hidden="true" />
                   </button>
                 </div>
               </section>
@@ -411,7 +427,7 @@ export default function AdminPanel() {
           <div className="photo-dialog-top">
             <DialogTitle>{active?.name}</DialogTitle>
             <DialogClose className="plain-button" disabled={saving}>
-              بستن ×
+              بستن <X aria-hidden="true" />
             </DialogClose>
           </div>
           <DialogDescription dir="ltr">{active?.reference}</DialogDescription>
@@ -448,6 +464,7 @@ export default function AdminPanel() {
           )}
           <div className="inquiry-dialog-actions">
             <button className="submit-button" disabled={saving} onClick={save}>
+              <Save aria-hidden="true" />{' '}
               {saving ? 'در حال ذخیره…' : 'ذخیره تغییرات'}
             </button>
             <button
@@ -455,7 +472,8 @@ export default function AdminPanel() {
               disabled={converting}
               onClick={convertToProject}
             >
-              {converting ? 'در حال ساخت پروژه…' : 'تبدیل به پروژه ＋'}
+              <FolderPlus aria-hidden="true" />{' '}
+              {converting ? 'در حال ساخت پروژه…' : 'تبدیل به پروژه'}
             </button>
           </div>
         </DialogContent>
