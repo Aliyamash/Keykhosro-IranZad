@@ -21,6 +21,7 @@ import { InquiryForm } from './inquiry-form';
 import { defaultPhotos, type Photo } from '@/lib/photo-types';
 import { localized, siteCopy } from './site-copy';
 import { siteMedia } from './site-media';
+import { ImpactWelcome } from './impact-welcome';
 import {
   FrameSequence,
   MovingManifesto,
@@ -71,6 +72,7 @@ export default function StudioSite({
   const c = (value: { fa: string; en: string }) => localized(fa, value);
   return (
     <>
+      <ImpactWelcome fa={fa} />
       <div className="page-curtain" aria-hidden="true">
         <span>KI / STUDIO</span>
       </div>
@@ -310,6 +312,7 @@ export default function StudioSite({
               </div>
             </section>
             <section
+              id="impact"
               className="impact-section"
               aria-labelledby="impact-title"
             >
