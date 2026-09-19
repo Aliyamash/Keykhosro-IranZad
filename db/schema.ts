@@ -53,6 +53,7 @@ export const accountingProjects = sqliteTable(
     title: text('title').notNull(),
     service: text('service').notNull().default(''),
     status: text('status').notNull().default('booked'),
+    currency: text('currency').notNull().default('IRT'),
     quotedAmount: integer('quoted_amount').notNull().default(0),
     internalText: text('internal_text').notNull().default(''),
     startDate: text('start_date').notNull().default(''),

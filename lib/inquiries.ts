@@ -3,6 +3,7 @@ import { env } from 'cloudflare:workers';
 const publicOrigins = new Set([
   'https://keykhosro-iranzad.com',
   'https://www.keykhosro-iranzad.com',
+  'https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site',
 ]);
 
 export type Inquiry = {
@@ -25,7 +26,10 @@ export function database() {
 }
 export function validOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  if (!origin) return false;
+  if (!origin)
+    return (
+      request.headers.get('sec-fetch-site')?.toLowerCase() === 'same-origin'
+    );
   try {
     const normalizedOrigin = new URL(origin).origin;
     return (

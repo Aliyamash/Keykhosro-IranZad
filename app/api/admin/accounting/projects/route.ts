@@ -2,6 +2,7 @@ import { adminIdentity } from '@/lib/admin';
 import {
   cleanAccountingText,
   cleanAmount,
+  cleanCurrency,
   projectStatuses,
   validDate,
 } from '@/lib/accounting';
@@ -86,6 +87,7 @@ export async function POST(request: Request) {
     const startDate = cleanAccountingText(body.startDate, 10);
     const dueDate = cleanAccountingText(body.dueDate, 10);
     const status = cleanAccountingText(body.status, 30) || 'booked';
+    const currency = cleanCurrency(body.currency) ?? 'IRT';
     const quotedAmount = cleanAmount(body.quotedAmount);
 
     if (
@@ -121,9 +123,9 @@ export async function POST(request: Request) {
       .prepare(
         `INSERT INTO accounting_projects
           (id, reference, source_inquiry_id, client_name, client_phone, client_email,
-           title, service, status, quoted_amount, internal_text, start_date, due_date,
-           created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+           title, service, status, currency, quoted_amount, internal_text, start_date,
+           due_date, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       )
       .bind(
         id,
@@ -135,6 +137,7 @@ export async function POST(request: Request) {
         title,
         service,
         status,
+        currency,
         quotedAmount,
         internalText,
         startDate,
@@ -150,7 +153,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Unable to create accounting project', error);
     return Response.json(
-      { error: 'Service unavailable' },
+      { error: 'Accounting storage unavailable' },
       { status: 503, headers: privateHeaders },
     );
   }

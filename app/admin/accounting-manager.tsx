@@ -9,6 +9,7 @@ import {
 } from 'react';
 import type {
   AccountingProject,
+  ProjectCurrency,
   ProjectPayment,
   ProjectStatus,
 } from '@/lib/accounting';
@@ -59,6 +60,11 @@ const statusNames: Record<ProjectStatus | 'all', string> = {
   cancelled: 'لغو شده',
 };
 
+const currencyNames: Record<ProjectCurrency, string> = {
+  IRT: 'تومان',
+  USD: 'دلار',
+};
+
 type ProjectForm = {
   clientName: string;
   clientPhone: string;
@@ -66,6 +72,7 @@ type ProjectForm = {
   title: string;
   service: string;
   status: ProjectStatus;
+  currency: ProjectCurrency;
   quotedAmount: string;
   internalText: string;
   startDate: string;
@@ -79,6 +86,7 @@ const blankProject = (): ProjectForm => ({
   title: '',
   service: '',
   status: 'booked',
+  currency: 'IRT',
   quotedAmount: '',
   internalText: '',
   startDate: '',
@@ -92,13 +100,40 @@ const fromProject = (project: AccountingProject): ProjectForm => ({
   title: project.title,
   service: project.service,
   status: project.status,
-  quotedAmount: String(project.quoted_amount),
+  currency: project.currency ?? 'IRT',
+  quotedAmount: formatAmountInput(String(project.quoted_amount)),
   internalText: project.internal_text,
   startDate: project.start_date,
   dueDate: project.due_date,
 });
 
-const money = new Intl.NumberFormat('fa-IR');
+const amountNumber = new Intl.NumberFormat('en-US');
+
+function formatAmountInput(value: string) {
+  const digits = value.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function formatMoney(value: number, currency: ProjectCurrency) {
+  const formatted = amountNumber.format(value);
+  return currency === 'USD' ? `$ ${formatted}` : `${formatted} تومان`;
+}
+
+async function responseMessage(response: Response, fallback: string) {
+  let code = '';
+  try {
+    code = ((await response.json()) as { error?: string }).error ?? '';
+  } catch {
+    // Some proxies return an HTML error page. The status still gives a useful message.
+  }
+  if (response.status === 400) return 'اطلاعات پروژه کامل یا معتبر نیست.';
+  if (response.status === 403)
+    return 'نشست مدیریت منقضی شده است؛ دوباره وارد پنل شوید.';
+  if (response.status === 409) return 'این پروژه قبلاً ثبت شده است.';
+  if (response.status >= 500 || code === 'Accounting storage unavailable')
+    return 'ارتباط با دفتر حسابداری برقرار نشد؛ چند لحظه بعد دوباره تلاش کنید.';
+  return fallback;
+}
 
 function escapeCsv(value: string | number) {
   return `"${String(value).replaceAll('"', '""')}"`;
@@ -173,16 +208,32 @@ export default function AccountingManager() {
     [items],
   );
   const totals = useMemo(() => {
-    const quoted = financialItems.reduce(
-      (sum, item) => sum + item.quoted_amount,
-      0,
-    );
-    const paid = financialItems.reduce(
-      (sum, item) => sum + item.paid_amount,
-      0,
-    );
-    return { quoted, paid, remaining: Math.max(0, quoted - paid) };
+    const result: Record<
+      ProjectCurrency,
+      { quoted: number; paid: number; remaining: number }
+    > = {
+      IRT: { quoted: 0, paid: 0, remaining: 0 },
+      USD: { quoted: 0, paid: 0, remaining: 0 },
+    };
+    for (const item of financialItems) {
+      const currency = item.currency ?? 'IRT';
+      result[currency].quoted += item.quoted_amount;
+      result[currency].paid += item.paid_amount;
+    }
+    for (const currency of ['IRT', 'USD'] as const)
+      result[currency].remaining = Math.max(
+        0,
+        result[currency].quoted - result[currency].paid,
+      );
+    return result;
   }, [financialItems]);
+
+  const summaryCurrencies = useMemo(() => {
+    const available = (['IRT', 'USD'] as const).filter(
+      (currency) => totals[currency].quoted > 0 || totals[currency].paid > 0,
+    );
+    return available.length ? available : (['IRT'] as const);
+  }, [totals]);
 
   function updateField<K extends keyof ProjectForm>(
     key: K,
@@ -245,11 +296,21 @@ export default function AccountingManager() {
           }),
         },
       );
-      if (!response.ok) throw new Error('save');
+      if (!response.ok)
+        throw new Error(
+          await responseMessage(
+            response,
+            'ذخیره پروژه انجام نشد. اطلاعات را بررسی کنید.',
+          ),
+        );
       setDialogOpen(false);
       setRefresh((value) => value + 1);
-    } catch {
-      setFormError('ذخیره پروژه انجام نشد. اطلاعات را بررسی کنید.');
+    } catch (saveError) {
+      setFormError(
+        saveError instanceof Error
+          ? saveError.message
+          : 'ذخیره پروژه انجام نشد. اطلاعات را بررسی کنید.',
+      );
     } finally {
       setSaving(false);
     }
@@ -274,19 +335,31 @@ export default function AccountingManager() {
           }),
         },
       );
-      if (!response.ok) throw new Error('payment');
+      if (!response.ok)
+        throw new Error(
+          await responseMessage(
+            response,
+            'ثبت پرداخت انجام نشد. مبلغ و تاریخ را بررسی کنید.',
+          ),
+        );
       setPaymentAmount('');
       setPaymentMethod('');
       setPaymentNote('');
       const detail = await fetch(`/api/admin/accounting/projects/${activeId}`);
+      if (!detail.ok)
+        throw new Error('پرداخت ثبت شد، اما فهرست به‌روزرسانی نشد.');
       const data = (await detail.json()) as {
         project: AccountingProject;
         payments: ProjectPayment[];
       };
       setPayments(data.payments);
       setRefresh((value) => value + 1);
-    } catch {
-      setFormError('ثبت پرداخت انجام نشد. مبلغ و تاریخ را بررسی کنید.');
+    } catch (paymentError) {
+      setFormError(
+        paymentError instanceof Error
+          ? paymentError.message
+          : 'ثبت پرداخت انجام نشد. مبلغ و تاریخ را بررسی کنید.',
+      );
     } finally {
       setPaymentSaving(false);
     }
@@ -301,9 +374,10 @@ export default function AccountingManager() {
       'عنوان پروژه',
       'نوع خدمت',
       'وضعیت',
-      'مبلغ قرارداد (تومان)',
-      'دریافتی (تومان)',
-      'مانده (تومان)',
+      'واحد پول',
+      'مبلغ قرارداد',
+      'دریافتی',
+      'مانده',
       'تاریخ شروع',
       'تاریخ تحویل',
       'متن داخلی',
@@ -316,6 +390,7 @@ export default function AccountingManager() {
       item.title,
       item.service,
       statusNames[item.status],
+      currencyNames[item.currency ?? 'IRT'],
       item.quoted_amount,
       item.paid_amount,
       Math.max(0, item.quoted_amount - item.paid_amount),
@@ -362,24 +437,39 @@ export default function AccountingManager() {
             <CircleDollarSign />
           </span>
           <span>ارزش قراردادها</span>
-          <strong>{money.format(totals.quoted)}</strong>
-          <small>تومان</small>
+          <div className="summary-money">
+            {summaryCurrencies.map((currency) => (
+              <strong key={currency}>
+                {formatMoney(totals[currency].quoted, currency)}
+              </strong>
+            ))}
+          </div>
         </article>
         <article>
           <span className="summary-icon" aria-hidden="true">
             <WalletCards />
           </span>
           <span>دریافت‌شده</span>
-          <strong>{money.format(totals.paid)}</strong>
-          <small>تومان</small>
+          <div className="summary-money">
+            {summaryCurrencies.map((currency) => (
+              <strong key={currency}>
+                {formatMoney(totals[currency].paid, currency)}
+              </strong>
+            ))}
+          </div>
         </article>
         <article className="accounting-balance">
           <span className="summary-icon" aria-hidden="true">
             <Banknote />
           </span>
           <span>مانده دریافت</span>
-          <strong>{money.format(totals.remaining)}</strong>
-          <small>تومان</small>
+          <div className="summary-money">
+            {summaryCurrencies.map((currency) => (
+              <strong key={currency}>
+                {formatMoney(totals[currency].remaining, currency)}
+              </strong>
+            ))}
+          </div>
         </article>
       </div>
 
@@ -459,11 +549,16 @@ export default function AccountingManager() {
                         <span dir="ltr">{item.reference}</span>
                       </small>
                     </TableCell>
-                    <TableCell>{money.format(item.quoted_amount)}</TableCell>
-                    <TableCell>{money.format(item.paid_amount)}</TableCell>
                     <TableCell>
-                      {money.format(
+                      {formatMoney(item.quoted_amount, item.currency ?? 'IRT')}
+                    </TableCell>
+                    <TableCell>
+                      {formatMoney(item.paid_amount, item.currency ?? 'IRT')}
+                    </TableCell>
+                    <TableCell>
+                      {formatMoney(
                         Math.max(0, item.quoted_amount - item.paid_amount),
+                        item.currency ?? 'IRT',
                       )}
                     </TableCell>
                     <TableCell>
@@ -566,21 +661,44 @@ export default function AccountingManager() {
                 />
               </div>
               <div className="accounting-field">
-                <label htmlFor="project-amount">مبلغ قرارداد (تومان) *</label>
-                <Input
-                  id="project-amount"
-                  required
-                  min="0"
-                  inputMode="numeric"
-                  dir="ltr"
-                  value={form.quotedAmount}
-                  onChange={(event) =>
-                    updateField(
-                      'quotedAmount',
-                      event.target.value.replace(/[^0-9,]/g, ''),
-                    )
-                  }
-                />
+                <label htmlFor="project-amount">
+                  مبلغ قرارداد ({currencyNames[form.currency]}) *
+                </label>
+                <div className="amount-with-currency">
+                  <Input
+                    id="project-amount"
+                    required
+                    inputMode="numeric"
+                    dir="ltr"
+                    value={form.quotedAmount}
+                    onChange={(event) =>
+                      updateField(
+                        'quotedAmount',
+                        formatAmountInput(event.target.value),
+                      )
+                    }
+                  />
+                  <Select
+                    value={form.currency}
+                    onValueChange={(value) =>
+                      updateField(
+                        'currency',
+                        (value ?? 'IRT') as ProjectCurrency,
+                      )
+                    }
+                  >
+                    <SelectTrigger
+                      className="admin-select currency-select"
+                      aria-label="واحد پول"
+                    >
+                      <SelectValue>{currencyNames[form.currency]}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent className="studio-select">
+                      <SelectItem value="IRT">تومان</SelectItem>
+                      <SelectItem value="USD">دلار آمریکا</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               <div className="accounting-field">
                 <label htmlFor="project-start">تاریخ شروع</label>
@@ -663,7 +781,9 @@ export default function AccountingManager() {
                   {payments.map((payment) => (
                     <article key={payment.id}>
                       <div>
-                        <strong>{money.format(payment.amount)} تومان</strong>
+                        <strong>
+                          {formatMoney(payment.amount, form.currency)}
+                        </strong>
                         <span>{payment.paid_at}</span>
                       </div>
                       <p>
@@ -677,7 +797,9 @@ export default function AccountingManager() {
               )}
               <form className="payment-form" onSubmit={addPayment}>
                 <div className="accounting-field">
-                  <label htmlFor="payment-amount">مبلغ دریافتی (تومان) *</label>
+                  <label htmlFor="payment-amount">
+                    مبلغ دریافتی ({currencyNames[form.currency]}) *
+                  </label>
                   <Input
                     id="payment-amount"
                     required
@@ -685,9 +807,7 @@ export default function AccountingManager() {
                     dir="ltr"
                     value={paymentAmount}
                     onChange={(event) =>
-                      setPaymentAmount(
-                        event.target.value.replace(/[^0-9,]/g, ''),
-                      )
+                      setPaymentAmount(formatAmountInput(event.target.value))
                     }
                   />
                 </div>

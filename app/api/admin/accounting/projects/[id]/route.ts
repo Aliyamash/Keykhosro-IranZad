@@ -2,6 +2,7 @@ import { adminIdentity } from '@/lib/admin';
 import {
   cleanAccountingText,
   cleanAmount,
+  cleanCurrency,
   projectStatuses,
   validDate,
 } from '@/lib/accounting';
@@ -69,11 +70,13 @@ export async function PATCH(request: Request, { params }: Context) {
     const startDate = cleanAccountingText(body.startDate, 10);
     const dueDate = cleanAccountingText(body.dueDate, 10);
     const status = cleanAccountingText(body.status, 30);
+    const currency = cleanCurrency(body.currency);
     const quotedAmount = cleanAmount(body.quotedAmount);
     if (
       clientName.length < 2 ||
       title.length < 2 ||
       quotedAmount === null ||
+      currency === null ||
       !projectStatuses.includes(status as never) ||
       !validDate(startDate) ||
       !validDate(dueDate) ||
@@ -86,7 +89,7 @@ export async function PATCH(request: Request, { params }: Context) {
       .prepare(
         `UPDATE accounting_projects SET
           client_name = ?, client_phone = ?, client_email = ?, title = ?,
-          service = ?, status = ?, quoted_amount = ?, internal_text = ?,
+          service = ?, status = ?, currency = ?, quoted_amount = ?, internal_text = ?,
           start_date = ?, due_date = ?, updated_at = ?
          WHERE id = ?`,
       )
@@ -97,6 +100,7 @@ export async function PATCH(request: Request, { params }: Context) {
         title,
         service,
         status,
+        currency,
         quotedAmount,
         internalText,
         startDate,
@@ -111,7 +115,7 @@ export async function PATCH(request: Request, { params }: Context) {
   } catch (error) {
     console.error('Unable to update accounting project', error);
     return Response.json(
-      { error: 'Service unavailable' },
+      { error: 'Accounting storage unavailable' },
       { status: 503, headers: privateHeaders },
     );
   }

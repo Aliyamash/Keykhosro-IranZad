@@ -8,6 +8,10 @@ export const projectStatuses = [
 
 export type ProjectStatus = (typeof projectStatuses)[number];
 
+export const projectCurrencies = ['IRT', 'USD'] as const;
+
+export type ProjectCurrency = (typeof projectCurrencies)[number];
+
 export type AccountingProject = {
   id: string;
   reference: string;
@@ -18,6 +22,7 @@ export type AccountingProject = {
   title: string;
   service: string;
   status: ProjectStatus;
+  currency: ProjectCurrency;
   quoted_amount: number;
   paid_amount: number;
   internal_text: string;
@@ -48,6 +53,12 @@ export function cleanAmount(value: unknown) {
       ? value
       : Number(value.replaceAll(',', '').trim());
   return Number.isSafeInteger(amount) && amount >= 0 ? amount : null;
+}
+
+export function cleanCurrency(value: unknown): ProjectCurrency | null {
+  return projectCurrencies.includes(value as ProjectCurrency)
+    ? (value as ProjectCurrency)
+    : null;
 }
 
 export function validDate(value: string) {

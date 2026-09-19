@@ -148,6 +148,7 @@ export default function AdminPanel() {
           title: services[active.service] || 'پروژه عکاسی',
           service: services[active.service] || active.service,
           status: 'booked',
+          currency: 'IRT',
           quotedAmount: 0,
           internalText: [
             `شرح اولیه مشتری:\n${active.message}`,

@@ -29,6 +29,13 @@
       "when": 1789825527847,
       "tag": "0003_amused_colleen_wing",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1789854400605,
+      "tag": "0004_lethal_shaman",
+      "breakpoints": true
     }
   ]
 }

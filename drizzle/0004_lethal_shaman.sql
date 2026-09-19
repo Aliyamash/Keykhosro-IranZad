@@ -1,0 +1,1 @@
+ALTER TABLE `accounting_projects` ADD `currency` text DEFAULT 'IRT' NOT NULL;

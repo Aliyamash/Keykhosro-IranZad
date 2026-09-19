@@ -138,6 +138,7 @@ body:has(.admin-login) {
   padding: 0 13px;
   display: grid;
   grid-template-columns: 22px minmax(0, 1fr) auto;
+  direction: ltr;
   align-items: center;
   gap: 11px;
   border: 1px solid transparent;
@@ -145,6 +146,15 @@ body:has(.admin-login) {
   text-align: start;
   font-size: 14px;
   transition: 160ms ease;
+}
+
+.admin-side-nav button > span,
+.admin-side-nav button > small {
+  direction: rtl;
+}
+
+.admin-side-nav button > span {
+  text-align: right;
 }
 
 .admin-side-nav button svg,
@@ -434,6 +444,21 @@ body:has(.admin-login) {
   gap: 8px;
 }
 
+.admin-app
+  :is(
+    .plain-button,
+    .accounting-primary,
+    .submit-button,
+    .admin-site-link,
+    .admin-signout
+  )
+  > svg,
+.admin-dialog :is(.plain-button, .submit-button) > svg,
+.photo-manager :is(button, a) > svg,
+.admin-mobile-nav button > svg {
+  order: 2;
+}
+
 .admin-app button svg,
 .admin-app a svg,
 .admin-dialog button svg,
@@ -713,6 +738,24 @@ body:has(.admin-login) {
   font-size: clamp(21px, 2.2vw, 30px);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+.accounting-summary .summary-money {
+  margin-top: 13px;
+  display: grid;
+  gap: 3px;
+  direction: ltr;
+  text-align: left;
+}
+
+.accounting-summary .summary-money strong {
+  margin: 0;
+  font-size: clamp(17px, 1.7vw, 24px);
+}
+
+.accounting-summary .summary-money strong + strong {
+  color: #a9a1c2;
+  font-size: clamp(14px, 1.3vw, 18px);
 }
 
 .accounting-summary .accounting-balance {
@@ -1010,6 +1053,29 @@ body:has(.admin-login) {
 
 .accounting-form .admin-select {
   width: 100%;
+}
+
+.amount-with-currency {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 145px;
+  gap: 8px;
+  direction: ltr;
+}
+
+.amount-with-currency .currency-select {
+  min-width: 0;
+  direction: rtl;
+}
+
+.accounting-form > .accounting-field .admin-select,
+.accounting-table th:nth-child(5),
+.accounting-table td:nth-child(5) {
+  direction: ltr;
+  text-align: left !important;
+}
+
+.admin-table .status-badge {
+  float: left;
 }
 
 .payment-section {
@@ -1368,6 +1434,9 @@ body:has(.admin-login) {
 }
 
 @media (max-width: 410px) {
+  .amount-with-currency {
+    grid-template-columns: 1fr;
+  }
   .admin-mobile-nav button {
     gap: 4px;
     font-size: 11px;
