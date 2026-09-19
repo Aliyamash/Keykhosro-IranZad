@@ -40,3 +40,47 @@ export const adminLoginAttempts = sqliteTable(
   },
   (t) => [index('idx_admin_login_attempts_updated').on(t.updatedAt)],
 );
+
+export const accountingProjects = sqliteTable(
+  'accounting_projects',
+  {
+    id: text('id').primaryKey(),
+    reference: text('reference').notNull().unique(),
+    sourceInquiryId: text('source_inquiry_id').unique(),
+    clientName: text('client_name').notNull(),
+    clientPhone: text('client_phone').notNull().default(''),
+    clientEmail: text('client_email').notNull().default(''),
+    title: text('title').notNull(),
+    service: text('service').notNull().default(''),
+    status: text('status').notNull().default('booked'),
+    quotedAmount: integer('quoted_amount').notNull().default(0),
+    internalText: text('internal_text').notNull().default(''),
+    startDate: text('start_date').notNull().default(''),
+    dueDate: text('due_date').notNull().default(''),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull(),
+  },
+  (t) => [
+    index('idx_accounting_projects_status').on(t.status),
+    index('idx_accounting_projects_created').on(t.createdAt),
+  ],
+);
+
+export const projectPayments = sqliteTable(
+  'project_payments',
+  {
+    id: text('id').primaryKey(),
+    projectId: text('project_id')
+      .notNull()
+      .references(() => accountingProjects.id, { onDelete: 'cascade' }),
+    amount: integer('amount').notNull(),
+    paidAt: text('paid_at').notNull(),
+    method: text('method').notNull().default(''),
+    note: text('note').notNull().default(''),
+    createdAt: integer('created_at').notNull(),
+  },
+  (t) => [
+    index('idx_project_payments_project').on(t.projectId),
+    index('idx_project_payments_paid_at').on(t.paidAt),
+  ],
+);

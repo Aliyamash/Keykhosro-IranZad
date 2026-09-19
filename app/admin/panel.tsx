@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import type { Inquiry } from '@/lib/inquiries';
 import PhotoManager from './photo-manager';
+import AccountingManager from './accounting-manager';
 import {
   Table,
   TableHeader,
@@ -49,6 +50,8 @@ export default function AdminPanel() {
     [saving, setSaving] = useState(false),
     [saveError, setSaveError] = useState('');
   const [signingOut, setSigningOut] = useState(false);
+  const [converting, setConverting] = useState(false);
+  const [convertMessage, setConvertMessage] = useState('');
   useEffect(() => {
     document.documentElement.lang = 'fa';
     document.documentElement.dir = 'rtl';
@@ -81,6 +84,7 @@ export default function AdminPanel() {
     setStatus(i.status);
     setNote(i.note);
     setSaveError('');
+    setConvertMessage('');
   }
   async function signOut() {
     if (signingOut) return;
@@ -110,6 +114,50 @@ export default function AdminPanel() {
       setSaving(false);
     }
   }
+  async function convertToProject() {
+    if (!active || converting) return;
+    setConverting(true);
+    setConvertMessage('');
+    try {
+      const response = await fetch('/api/admin/accounting/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sourceInquiryId: active.id,
+          clientName: active.name,
+          clientPhone: active.phone,
+          clientEmail: active.email,
+          title: services[active.service] || 'پروژه عکاسی',
+          service: services[active.service] || active.service,
+          status: 'booked',
+          quotedAmount: 0,
+          internalText: [
+            `شرح اولیه مشتری:\n${active.message}`,
+            note ? `یادداشت پیگیری:\n${note}` : '',
+          ]
+            .filter(Boolean)
+            .join('\n\n'),
+          startDate: '',
+          dueDate: '',
+        }),
+      });
+      const result = (await response.json()) as {
+        reference?: string;
+        error?: string;
+      };
+      if (!response.ok && response.status !== 409) throw new Error('convert');
+      setConvertMessage(
+        response.status === 409
+          ? `این درخواست قبلاً با کد ${result.reference ?? ''} ثبت شده است.`
+          : `پروژه ${result.reference ?? ''} ساخته شد؛ مبلغ و جزئیات مالی را در دفتر پروژه‌ها تکمیل کنید.`,
+      );
+      window.dispatchEvent(new Event('accounting:refresh'));
+    } catch {
+      setConvertMessage('تبدیل درخواست به پروژه انجام نشد.');
+    } finally {
+      setConverting(false);
+    }
+  }
   const choices = (value: string, change: (v: string) => void, all = false) => (
     <Select value={value} onValueChange={(v) => change(v ?? 'new')}>
       <SelectTrigger className="admin-select" aria-label="وضعیت درخواست">
@@ -137,6 +185,7 @@ export default function AdminPanel() {
         </a>
         <span>ورود امن مدیریت</span>
         <div className="admin-header-actions">
+          <a href="#accounting">پروژه‌ها و حسابداری</a>
           <a href="#photo-library">مدیریت تصاویر</a>
           <a href="/">مشاهده سایت ↗</a>
           <button
@@ -249,6 +298,7 @@ export default function AdminPanel() {
           </button>
         </div>
       </section>
+      <AccountingManager />
       <PhotoManager />
       <Dialog
         open={!!active}
@@ -280,7 +330,7 @@ export default function AdminPanel() {
               <p>{active?.message}</p>
             </div>
           </div>
-          <label>وضعیت درخواست</label>
+          <span className="admin-field-caption">وضعیت درخواست</span>
           {choices(status, setStatus)}
           <label htmlFor="admin-note">یادداشت داخلی</label>
           <textarea
@@ -292,9 +342,21 @@ export default function AdminPanel() {
             onChange={(e) => setNote(e.target.value)}
           />
           {saveError && <p role="alert">{saveError}</p>}
-          <button className="submit-button" disabled={saving} onClick={save}>
-            {saving ? 'در حال ذخیره…' : 'ذخیره تغییرات'}
-          </button>
+          {convertMessage && (
+            <output className="convert-feedback">{convertMessage}</output>
+          )}
+          <div className="inquiry-dialog-actions">
+            <button className="submit-button" disabled={saving} onClick={save}>
+              {saving ? 'در حال ذخیره…' : 'ذخیره تغییرات'}
+            </button>
+            <button
+              className="plain-button"
+              disabled={converting}
+              onClick={convertToProject}
+            >
+              {converting ? 'در حال ساخت پروژه…' : 'تبدیل به پروژه ＋'}
+            </button>
+          </div>
         </DialogContent>
       </Dialog>
     </main>
