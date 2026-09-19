@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { ExternalLink, Images, Inbox, LogOut, WalletCards } from 'lucide-react';
 import type { Inquiry } from '@/lib/inquiries';
 import PhotoManager from './photo-manager';
 import AccountingManager from './accounting-manager';
@@ -37,6 +38,9 @@ const services: Record<string, string> = {
   other: 'همکاری دیگر',
 };
 export default function AdminPanel() {
+  const [activeView, setActiveView] = useState<
+    'inquiries' | 'accounting' | 'images'
+  >('inquiries');
   const [items, setItems] = useState<Inquiry[]>([]),
     [total, setTotal] = useState(0),
     [filter, setFilter] = useState('all'),
@@ -175,131 +179,228 @@ export default function AdminPanel() {
     </Select>
   );
   return (
-    <main className="admin-shell">
-      <header className="admin-header">
+    <div className="admin-app">
+      <aside className="admin-sidebar">
         <a href="/" className="admin-brand">
           <span aria-hidden="true">KI</span>
           <div>
-            کیخسرو ایرانزاد<small>مدیریت استودیو</small>
+            <strong>کیخسرو ایرانزاد</strong>
+            <small>مدیریت استودیو</small>
           </div>
         </a>
-        <span>ورود امن مدیریت</span>
-        <div className="admin-header-actions">
-          <a href="#accounting">پروژه‌ها و حسابداری</a>
-          <a href="#photo-library">مدیریت تصاویر</a>
-          <a href="/">مشاهده سایت ↗</a>
+        <nav className="admin-side-nav" aria-label="بخش‌های مدیریت">
+          <span>فضای کاری</span>
+          <button
+            type="button"
+            className={activeView === 'inquiries' ? 'is-active' : ''}
+            aria-current={activeView === 'inquiries' ? 'page' : undefined}
+            onClick={() => setActiveView('inquiries')}
+          >
+            <Inbox aria-hidden="true" />
+            <span>درخواست‌ها</span>
+            {total > 0 && <small>{total.toLocaleString('fa-IR')}</small>}
+          </button>
+          <button
+            type="button"
+            className={activeView === 'accounting' ? 'is-active' : ''}
+            aria-current={activeView === 'accounting' ? 'page' : undefined}
+            onClick={() => setActiveView('accounting')}
+          >
+            <WalletCards aria-hidden="true" />
+            <span>پروژه‌ها و مالی</span>
+          </button>
+          <button
+            type="button"
+            className={activeView === 'images' ? 'is-active' : ''}
+            aria-current={activeView === 'images' ? 'page' : undefined}
+            onClick={() => setActiveView('images')}
+          >
+            <Images aria-hidden="true" />
+            <span>مدیریت تصاویر</span>
+          </button>
+        </nav>
+        <div className="admin-sidebar-footer">
+          <span className="admin-secure-indicator">
+            <i aria-hidden="true" /> نشست مدیریت فعال
+          </span>
+          <a href="/">
+            <ExternalLink aria-hidden="true" /> مشاهده سایت
+          </a>
           <button
             type="button"
             className="admin-signout"
             onClick={signOut}
             disabled={signingOut}
           >
-            {signingOut ? 'در حال خروج…' : 'خروج'}
+            <LogOut aria-hidden="true" />
+            {signingOut ? 'در حال خروج…' : 'خروج از پنل'}
           </button>
         </div>
-      </header>
-      <section className="admin-heading">
-        <div>
-          <span className="eyebrow">STUDIO / INQUIRIES</span>
-          <h1>درخواست‌های همکاری</h1>
-          <p>گفت‌وگوهای تازه، پروژه‌های بعدی.</p>
-        </div>
-        <div className="admin-count">
-          <strong>{loading ? '—' : total.toLocaleString('fa-IR')}</strong>
-          <span>درخواست در این فهرست</span>
-        </div>
-      </section>
-      <section className="admin-inbox" aria-label="فهرست درخواست‌ها">
-        <div className="admin-toolbar">
-          <span className="admin-inbox-title">صندوق درخواست‌ها</span>
-          {choices(
-            filter,
-            (v) => {
-              setFilter(v);
-              setPage(1);
-            },
-            true,
+      </aside>
+      <main className="admin-workspace">
+        <header className="admin-topbar">
+          <div>
+            <span>پنل مدیریت</span>
+            <strong>
+              {activeView === 'inquiries'
+                ? 'درخواست‌های همکاری'
+                : activeView === 'accounting'
+                  ? 'پروژه‌ها و حسابداری'
+                  : 'مدیریت تصاویر'}
+            </strong>
+          </div>
+          <a href="/" className="admin-site-link">
+            مشاهده سایت <ExternalLink aria-hidden="true" />
+          </a>
+        </header>
+        <nav className="admin-mobile-nav" aria-label="بخش‌های مدیریت">
+          <button
+            type="button"
+            className={activeView === 'inquiries' ? 'is-active' : ''}
+            onClick={() => setActiveView('inquiries')}
+          >
+            <Inbox aria-hidden="true" /> درخواست‌ها
+          </button>
+          <button
+            type="button"
+            className={activeView === 'accounting' ? 'is-active' : ''}
+            onClick={() => setActiveView('accounting')}
+          >
+            <WalletCards aria-hidden="true" /> مالی
+          </button>
+          <button
+            type="button"
+            className={activeView === 'images' ? 'is-active' : ''}
+            onClick={() => setActiveView('images')}
+          >
+            <Images aria-hidden="true" /> تصاویر
+          </button>
+        </nav>
+        <div className="admin-content">
+          {activeView === 'inquiries' && (
+            <div className="admin-view">
+              <section className="admin-heading">
+                <div>
+                  <span className="eyebrow">INQUIRIES</span>
+                  <h1>درخواست‌های همکاری</h1>
+                  <p>پیگیری پیام‌های ورودی و تبدیل آن‌ها به پروژه.</p>
+                </div>
+                <div className="admin-count">
+                  <span>کل درخواست‌ها</span>
+                  <strong>
+                    {loading ? '—' : total.toLocaleString('fa-IR')}
+                  </strong>
+                </div>
+              </section>
+              <section className="admin-inbox" aria-label="فهرست درخواست‌ها">
+                <div className="admin-toolbar">
+                  <span className="admin-inbox-title">صندوق درخواست‌ها</span>
+                  {choices(
+                    filter,
+                    (v) => {
+                      setFilter(v);
+                      setPage(1);
+                    },
+                    true,
+                  )}
+                  <button
+                    className="plain-button"
+                    disabled={loading}
+                    onClick={() => setRefresh((n) => n + 1)}
+                  >
+                    به‌روزرسانی ↻
+                  </button>
+                </div>
+                <div className="admin-table-scroll">
+                  {error ? (
+                    <div className="admin-empty" role="alert">
+                      {error}
+                    </div>
+                  ) : loading ? (
+                    <div className="admin-empty" role="status">
+                      در حال دریافت درخواست‌ها…
+                    </div>
+                  ) : items.length === 0 ? (
+                    <div className="admin-empty">
+                      <h2>هنوز درخواستی در این فهرست نیست.</h2>
+                      <p>درخواست‌های فرم همکاری اینجا نمایش داده می‌شوند.</p>
+                      <a href="/studio#request">مشاهده فرم همکاری ↗</a>
+                    </div>
+                  ) : (
+                    <Table className="admin-table">
+                      <TableHeader>
+                        <TableRow>
+                          {[
+                            'کد پیگیری',
+                            'نام / ایمیل',
+                            'تاریخ',
+                            'وضعیت',
+                            'جزئیات',
+                          ].map((h) => (
+                            <TableHead key={h}>{h}</TableHead>
+                          ))}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {items.map((i) => (
+                          <TableRow key={i.id}>
+                            <TableCell dir="ltr" className="admin-reference">
+                              {i.reference}
+                            </TableCell>
+                            <TableCell>
+                              <strong className="admin-client-name">
+                                {i.name}
+                              </strong>
+                              <small dir="ltr">{i.email}</small>
+                            </TableCell>
+                            <TableCell>
+                              {new Intl.DateTimeFormat('fa-IR', {
+                                dateStyle: 'medium',
+                              }).format(i.created_at)}
+                            </TableCell>
+                            <TableCell>
+                              <span className={'status-badge ' + i.status}>
+                                {names[i.status]}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <button
+                                className="plain-button"
+                                onClick={() => open(i)}
+                              >
+                                مشاهده
+                              </button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </div>
+                <div className="admin-pagination">
+                  <button
+                    disabled={page === 1}
+                    onClick={() => setPage((p) => p - 1)}
+                  >
+                    صفحه قبل
+                  </button>
+                  <span>
+                    صفحه {page} از {Math.max(1, Math.ceil(total / 30))}
+                  </span>
+                  <button
+                    disabled={page * 30 >= total}
+                    onClick={() => setPage((p) => p + 1)}
+                  >
+                    صفحه بعد
+                  </button>
+                </div>
+              </section>
+            </div>
           )}
-          <button
-            className="plain-button"
-            disabled={loading}
-            onClick={() => setRefresh((n) => n + 1)}
-          >
-            به‌روزرسانی ↻
-          </button>
+          {activeView === 'accounting' && <AccountingManager />}
+          {activeView === 'images' && <PhotoManager />}
         </div>
-        {error ? (
-          <div className="admin-empty" role="alert">
-            {error}
-          </div>
-        ) : loading ? (
-          <div className="admin-empty" role="status">
-            در حال دریافت درخواست‌ها…
-          </div>
-        ) : items.length === 0 ? (
-          <div className="admin-empty">
-            <h2>هنوز درخواستی در این فهرست نیست.</h2>
-            <p>درخواست‌های فرم همکاری اینجا نمایش داده می‌شوند.</p>
-            <a href="/studio#request">مشاهده فرم همکاری ↗</a>
-          </div>
-        ) : (
-          <Table className="admin-table">
-            <TableHeader>
-              <TableRow>
-                {['کد پیگیری', 'نام / ایمیل', 'تاریخ', 'وضعیت', 'جزئیات'].map(
-                  (h) => (
-                    <TableHead key={h}>{h}</TableHead>
-                  ),
-                )}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((i) => (
-                <TableRow key={i.id}>
-                  <TableCell dir="ltr" className="admin-reference">
-                    {i.reference}
-                  </TableCell>
-                  <TableCell>
-                    <strong className="admin-client-name">{i.name}</strong>
-                    <small dir="ltr">{i.email}</small>
-                  </TableCell>
-                  <TableCell>
-                    {new Intl.DateTimeFormat('fa-IR', {
-                      dateStyle: 'medium',
-                    }).format(i.created_at)}
-                  </TableCell>
-                  <TableCell>
-                    <span className={'status-badge ' + i.status}>
-                      {names[i.status]}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <button className="plain-button" onClick={() => open(i)}>
-                      مشاهده ↗
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-        <div className="admin-pagination">
-          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-            صفحه قبل
-          </button>
-          <span>
-            صفحه {page} از {Math.max(1, Math.ceil(total / 30))}
-          </span>
-          <button
-            disabled={page * 30 >= total}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            صفحه بعد
-          </button>
-        </div>
-      </section>
-      <AccountingManager />
-      <PhotoManager />
+      </main>
       <Dialog
         open={!!active}
         onOpenChange={(o) => {
@@ -359,6 +460,6 @@ export default function AdminPanel() {
           </div>
         </DialogContent>
       </Dialog>
-    </main>
+    </div>
   );
 }
