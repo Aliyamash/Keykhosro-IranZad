@@ -3,14 +3,16 @@
   "framework": null,
   "buildCommand": null,
   "outputDirectory": "public",
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "destination": "https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site"
+      "destination": "https://keykhosro-iranzad.com",
+      "permanent": false
     },
     {
       "source": "/:path*",
-      "destination": "https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site/:path*"
+      "destination": "https://keykhosro-iranzad.com/:path*",
+      "permanent": false
     }
   ]
 }
