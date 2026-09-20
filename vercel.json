@@ -5,6 +5,10 @@
   "outputDirectory": "public",
   "rewrites": [
     {
+      "source": "/",
+      "destination": "https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site/"
+    },
+    {
       "source": "/:path*",
       "destination": "https://keykhosro-iranzad-studio.ali2763-mar.chatgpt.site/:path*"
     }
