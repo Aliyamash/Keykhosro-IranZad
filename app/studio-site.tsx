@@ -37,6 +37,27 @@ import {
   DialogDescription,
   DialogClose,
 } from '@/components/ui/dialog';
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="7.4" cy="8" r="1" fill="currentColor" stroke="none" />
+      <path d="M7.4 11v6M11 17v-6m0 2.5c.8-1.7 5-2.2 5 1V17" />
+    </svg>
+  );
+}
+
 type Page = 'home' | 'works' | 'studio';
 export default function StudioSite({
   page,
@@ -544,9 +565,43 @@ export default function StudioSite({
         )}
       </main>
       <footer className="site-footer">
-        <span>{t('کیخسرو ایرانزاد', 'KEYKHOSRO IRANZAD')}</span>
-        <span>© {new Date().getFullYear()}</span>
-        <a href="/studio">
+        <span className="footer-signature">
+          {t('کیخسرو ایرانزاد', 'KEYKHOSRO IRANZAD')}
+          <small>© {new Date().getFullYear()}</small>
+        </span>
+        <nav
+          className="footer-socials"
+          aria-label={t('شبکه‌های اجتماعی', 'Social media')}
+        >
+          <a
+            href="https://www.instagram.com/keykhosro_iranzad_art/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('اینستاگرام کیخسرو ایرانزاد', 'Keykhosro Iranzad on Instagram')}
+          >
+            <InstagramIcon />
+            <span>Instagram</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/keykhosro-iranzad-a0a01942b"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('لینکدین کیخسرو ایرانزاد', 'Keykhosro Iranzad on LinkedIn')}
+          >
+            <LinkedInIcon />
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="https://wa.me/989130231782"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('پیام در واتس‌اپ بیزنس', 'Message the studio on WhatsApp')}
+          >
+            <MessageCircle aria-hidden="true" />
+            <span>WhatsApp</span>
+          </a>
+        </nav>
+        <a className="footer-conversation" href="/studio">
           {t('شروع یک همکاری', 'START A CONVERSATION')}{' '}
           <ArrowUpRight aria-hidden="true" />
         </a>

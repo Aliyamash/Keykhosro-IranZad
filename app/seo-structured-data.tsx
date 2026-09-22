@@ -21,6 +21,11 @@ const structuredData = {
       url: siteUrl,
       image: `${siteUrl}/images/about/keykhosro-portrait.webp`,
       jobTitle: 'Photographer & Visual Director',
+      sameAs: [
+        'https://www.instagram.com/keykhosro_iranzad_art/',
+        'https://www.linkedin.com/in/keykhosro-iranzad-a0a01942b',
+        'https://wa.me/989130231782',
+      ],
       description:
         'Portrait, editorial and fashion photographer known for cinematic, high-contrast visual storytelling.',
       knowsAbout: [
