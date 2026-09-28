@@ -892,6 +892,28 @@ html[lang='en'] .wordmark > span {
   font-size: 14px;
   line-height: 1.8;
 }
+.about-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+.about-sources a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: underline;
+  text-decoration-color: #17171755;
+  text-underline-offset: 5px;
+  transition: opacity 180ms ease;
+}
+.about-sources a:hover {
+  opacity: 0.58;
+}
+.about-sources svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.4;
+}
 .about-link {
   border-color: #171717;
 }

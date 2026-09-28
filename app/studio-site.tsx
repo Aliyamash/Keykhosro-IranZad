@@ -294,6 +294,17 @@ export default function StudioSite({
                       {t('تک‌رنگ و روایت‌محور', 'Monochrome & narrative-led')}
                     </dd>
                   </div>
+                  <div>
+                    <dt>{t('منابع حرفه‌ای', 'INDUSTRY SOURCES')}</dt>
+                    <dd className="about-sources">
+                      <a href="https://www.marikamagazine.com/" target="_blank" rel="noopener noreferrer">
+                        Marika Magazine <ArrowUpRight aria-hidden="true" />
+                      </a>
+                      <a href="https://kavyar.com/home" target="_blank" rel="noopener noreferrer">
+                        Kavyar <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    </dd>
+                  </div>
                 </dl>
                 <a href="/studio#request" className="text-link about-link">
                   {t('شروع یک گفت‌وگو', 'START A CONVERSATION')}{' '}
