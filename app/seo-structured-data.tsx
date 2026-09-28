@@ -1,4 +1,9 @@
 const siteUrl = 'https://keykhosro-iranzad.com';
+const dateModified = '2026-09-28';
+const socialProfiles = [
+  'https://www.instagram.com/keykhosro_iranzad_art/',
+  'https://www.linkedin.com/in/keykhosro-iranzad-a0a01942b',
+];
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -11,7 +16,21 @@ const structuredData = {
       description:
         'Official portfolio of Keykhosro Iranzad, portrait, fashion and editorial photographer.',
       inLanguage: ['fa', 'en'],
-      publisher: { '@id': `${siteUrl}/#studio` },
+      dateModified,
+      publisher: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'Keykhosro Iranzad Studio',
+      alternateName: 'استودیو کیخسرو ایرانزاد',
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.svg`,
+      image: `${siteUrl}/images/about/keykhosro-portrait.webp`,
+      description:
+        'An independent photography studio working across portrait, fashion, editorial, fine-art and conceptual photography.',
+      founder: { '@id': `${siteUrl}/#person` },
+      sameAs: socialProfiles,
     },
     {
       '@type': 'Person',
@@ -21,11 +40,7 @@ const structuredData = {
       url: siteUrl,
       image: `${siteUrl}/images/about/keykhosro-portrait.webp`,
       jobTitle: 'Photographer & Visual Director',
-      sameAs: [
-        'https://www.instagram.com/keykhosro_iranzad_art/',
-        'https://www.linkedin.com/in/keykhosro-iranzad-a0a01942b',
-        'https://wa.me/989130231782',
-      ],
+      sameAs: socialProfiles,
       description:
         'Portrait, editorial and fashion photographer known for cinematic, high-contrast visual storytelling.',
       knowsAbout: [
@@ -35,7 +50,7 @@ const structuredData = {
         'Fine Art Photography',
         'Visual Direction',
       ],
-      worksFor: { '@id': `${siteUrl}/#studio` },
+      worksFor: { '@id': `${siteUrl}/#organization` },
     },
     {
       '@type': 'ProfessionalService',
@@ -47,6 +62,8 @@ const structuredData = {
       description:
         'Portrait, fashion, editorial and conceptual photography studio.',
       founder: { '@id': `${siteUrl}/#person` },
+      parentOrganization: { '@id': `${siteUrl}/#organization` },
+      areaServed: 'Worldwide',
       serviceType: [
         'Portrait Photography',
         'Fashion Photography',

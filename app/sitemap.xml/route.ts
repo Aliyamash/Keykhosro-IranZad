@@ -9,6 +9,7 @@ export function GET() {
     .map(
       ({ path, changeFrequency, priority }) => `  <url>
     <loc>https://keykhosro-iranzad.com${path}</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>${changeFrequency}</changefreq>
     <priority>${priority}</priority>
   </url>`,

@@ -22,6 +22,7 @@ import { defaultPhotos, type Photo } from '@/lib/photo-types';
 import { localized, siteCopy } from './site-copy';
 import { siteMedia } from './site-media';
 import { ImpactWelcome } from './impact-welcome';
+import { studioFaqs } from './studio-faqs';
 import {
   FrameSequence,
   MovingManifesto,
@@ -560,6 +561,28 @@ export default function StudioSite({
                 <p>{c(siteCopy.inquiry)}</p>
               </div>
               <InquiryForm lang={lang} />
+            </section>
+            <section id="faq" className="faq-section" aria-labelledby="faq-title">
+              <header>
+                <span className="eyebrow">KI / FAQ</span>
+                <h2 id="faq-title">
+                  {t('پرسش‌های', 'Questions,')}
+                  <br />
+                  <em>{t('متداول.', 'answered.')}</em>
+                </h2>
+              </header>
+              <div className="faq-list">
+                {studioFaqs.map((item, index) => (
+                  <details key={item.question.en} name="studio-faq">
+                    <summary>
+                      <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                      <h3>{t(item.question.fa, item.question.en)}</h3>
+                      <i aria-hidden="true">+</i>
+                    </summary>
+                    <p>{t(item.answer.fa, item.answer.en)}</p>
+                  </details>
+                ))}
+              </div>
             </section>
           </>
         )}
