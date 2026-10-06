@@ -14,6 +14,14 @@ export default function AboutContent({
 
   if (!primary) return null;
 
+  const name = (member: TeamMember) =>
+    fa ? member.nameFa : member.nameEn || member.nameFa;
+  const role = (member: TeamMember) =>
+    fa ? member.roleFa : member.roleEn || member.roleFa;
+  const biography = (member: TeamMember) =>
+    fa ? member.bioFa : member.bioEn || member.bioFa;
+  const usesPersianFallback = (englishValue: string) => !fa && !englishValue;
+
   const socials = (member: TeamMember) =>
     [
       member.instagram && {
@@ -80,7 +88,7 @@ export default function AboutContent({
         <figure className="about-page-primary-image">
           <img
             src={primary.imageUrl}
-            alt={fa ? primary.nameFa : primary.nameEn}
+            alt={name(primary)}
             fetchPriority="high"
           />
           <figcaption>
@@ -90,11 +98,18 @@ export default function AboutContent({
         <div className="about-page-primary-copy">
           <span className="about-page-index">KI / PROFILE</span>
           <h2 id="primary-profile-name">
-            {fa ? primary.nameFa : primary.nameEn}
+            <span dir={usesPersianFallback(primary.nameEn) ? 'rtl' : undefined}>
+              {name(primary)}
+            </span>
           </h2>
-          <h3>{fa ? primary.roleFa : primary.roleEn}</h3>
-          <div className="about-page-bio">
-            {(fa ? primary.bioFa : primary.bioEn)
+          <h3 dir={usesPersianFallback(primary.roleEn) ? 'rtl' : undefined}>
+            {role(primary)}
+          </h3>
+          <div
+            className="about-page-bio"
+            dir={usesPersianFallback(primary.bioEn) ? 'rtl' : undefined}
+          >
+            {biography(primary)
               .split(/\n\s*\n/)
               .filter(Boolean)
               .map((paragraph, index) => (
@@ -143,7 +158,7 @@ export default function AboutContent({
                   {member.imageUrl ? (
                     <img
                       src={member.imageUrl}
-                      alt={fa ? member.nameFa : member.nameEn}
+                      alt={name(member)}
                       loading="lazy"
                     />
                   ) : (
@@ -152,10 +167,21 @@ export default function AboutContent({
                   <figcaption>{String(index + 2).padStart(2, '0')}</figcaption>
                 </figure>
                 <div>
-                  <h3>{fa ? member.nameFa : member.nameEn}</h3>
-                  <span>{fa ? member.roleFa : member.roleEn}</span>
-                  <div className="about-page-bio">
-                    {(fa ? member.bioFa : member.bioEn)
+                  <h3
+                    dir={usesPersianFallback(member.nameEn) ? 'rtl' : undefined}
+                  >
+                    {name(member)}
+                  </h3>
+                  <span
+                    dir={usesPersianFallback(member.roleEn) ? 'rtl' : undefined}
+                  >
+                    {role(member)}
+                  </span>
+                  <div
+                    className="about-page-bio"
+                    dir={usesPersianFallback(member.bioEn) ? 'rtl' : undefined}
+                  >
+                    {biography(member)
                       .split(/\n\s*\n/)
                       .filter(Boolean)
                       .map((paragraph, paragraphIndex) => (
@@ -170,7 +196,7 @@ export default function AboutContent({
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`${label} — ${fa ? member.nameFa : member.nameEn}`}
+                          aria-label={`${label} — ${name(member)}`}
                         >
                           <SocialIcon kind={kind} />
                           <span>{label}</span>

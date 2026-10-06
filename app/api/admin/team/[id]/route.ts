@@ -50,7 +50,7 @@ export async function PATCH(
     const nameEn = text(form, 'nameEn');
     const bioFa = text(form, 'bioFa');
     const bioEn = text(form, 'bioEn');
-    if (!nameFa || !nameEn || !bioFa || !bioEn) {
+    if (!nameFa || !bioFa) {
       return NextResponse.json(
         { error: 'Required fields are missing' },
         { status: 400 },

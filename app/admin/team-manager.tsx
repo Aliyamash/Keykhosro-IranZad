@@ -272,13 +272,13 @@ export default function TeamManager() {
                 />
               </label>
               <label>
-                نام انگلیسی *
+                نام انگلیسی (اختیاری)
                 <input
                   dir="ltr"
                   value={draft.nameEn}
                   onChange={(e) => update('nameEn', e.target.value)}
-                  required
                   maxLength={120}
+                  placeholder="بعداً تکمیل می‌شود"
                 />
               </label>
               <label>
@@ -310,14 +310,14 @@ export default function TeamManager() {
               />
             </label>
             <label className="team-bio">
-              بیوگرافی انگلیسی *
+              بیوگرافی انگلیسی (اختیاری)
               <textarea
                 dir="ltr"
                 value={draft.bioEn}
                 onChange={(e) => update('bioEn', e.target.value)}
-                required
                 rows={7}
                 maxLength={5000}
+                placeholder="English biography can be added later"
               />
             </label>
             <div className="team-social-fields">
