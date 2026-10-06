@@ -639,6 +639,20 @@ export default function StudioSite({
           {t('شروع یک همکاری', 'START A CONVERSATION')}{' '}
           <ArrowUpRight aria-hidden="true" />
         </a>
+        <p className="footer-credit">
+          {t('طراحی‌شده توسط تیم', 'Designed by')}{' '}
+          <a
+            href="https://trust-ence.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t(
+              'وب‌سایت تیم تراستنس',
+              'Visit the Trustence website',
+            )}
+          >
+            Trustence
+          </a>
+        </p>
       </footer>
     </>
   );
