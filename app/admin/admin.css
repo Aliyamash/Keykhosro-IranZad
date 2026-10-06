@@ -947,6 +947,276 @@ body:has(.admin-login) {
   line-height: 1.8;
 }
 
+.media-feedback.success {
+  border-color: #2f7359;
+  background: #102a22;
+  color: #8ce7bc;
+}
+
+.team-manager {
+  display: grid;
+  gap: 20px;
+  animation: admin-view-in 320ms ease both;
+}
+
+.team-heading-actions,
+.team-card-actions,
+.team-admin-badges {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.team-form,
+.team-collection {
+  overflow: hidden;
+  border: 1px solid var(--admin-line);
+  border-radius: 18px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.team-form {
+  padding: 22px;
+}
+
+.team-form-head {
+  margin-bottom: 20px;
+  padding-bottom: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid var(--admin-line-soft);
+}
+
+.team-form-head span {
+  color: var(--admin-accent-2);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.team-form-head h3 {
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.team-form-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.team-form label {
+  display: grid;
+  gap: 7px;
+  color: #b7afc8;
+  font-size: 12px;
+}
+
+.team-form :is(input:not([type='checkbox']), textarea) {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #40365e;
+  border-radius: 10px;
+  outline: 0;
+  background: #100d1d;
+  color: var(--admin-text);
+  font: inherit;
+}
+
+.team-form :is(input, textarea):focus {
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px rgb(139 124 255 / 12%);
+}
+
+.team-form textarea {
+  min-height: 165px;
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.team-photo-field {
+  grid-row: span 2;
+}
+
+.team-photo-preview {
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px dashed #584b78;
+  border-radius: 14px;
+  background: #0d0a18;
+  color: var(--admin-accent);
+}
+
+.team-photo-preview img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.team-photo-preview svg {
+  width: 42px;
+  height: 42px;
+  stroke-width: 1.25;
+}
+
+.team-photo-field input[type='file'] {
+  min-width: 0;
+  color: var(--admin-muted);
+  font-size: 11px;
+}
+
+.team-photo-field small {
+  color: #817797;
+  font-size: 10px;
+}
+
+.team-fields,
+.team-social-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.team-fields {
+  grid-column: span 2;
+}
+
+.team-bio {
+  min-width: 0;
+}
+
+.team-social-fields {
+  grid-column: 2 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.team-options {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: end;
+  gap: 18px;
+}
+
+.team-options > label:first-child {
+  width: 145px;
+}
+
+.team-form .team-check {
+  min-height: 44px;
+  padding: 0 14px;
+  display: flex;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+  border: 1px solid #40365e;
+  border-radius: 10px;
+  background: #100d1d;
+  color: #eeeaff;
+}
+
+.team-check input {
+  accent-color: var(--admin-accent);
+}
+
+.team-save {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.team-cards {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.team-admin-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--admin-line);
+  border-radius: 15px;
+  background: #100d1d;
+}
+
+.team-admin-card.is-muted {
+  opacity: 0.58;
+}
+
+.team-admin-photo {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--admin-line-soft);
+  background: #090711;
+  color: var(--admin-muted);
+}
+
+.team-admin-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-admin-photo svg {
+  width: 38px;
+  height: 38px;
+}
+
+.team-admin-copy {
+  padding: 15px;
+}
+
+.team-admin-badges span {
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  background: var(--admin-accent-soft);
+  color: #c9c2ff;
+  font-size: 10px;
+}
+
+.team-admin-badges svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.team-admin-copy h3 {
+  margin-top: 12px;
+  font-size: 17px;
+}
+
+.team-admin-copy > small,
+.team-admin-copy > p {
+  margin-top: 5px;
+  display: block;
+  color: var(--admin-muted);
+  font-size: 11px;
+}
+
+.team-card-actions {
+  padding: 12px 15px 15px;
+  border-top: 1px solid var(--admin-line-soft);
+}
+
+.team-card-actions .plain-button {
+  flex: 1;
+}
+
+.team-card-actions .danger {
+  border-color: #6b2b44;
+  color: var(--admin-danger);
+}
+
 .convert-feedback {
   border-color: #2f7359;
   background: #102a22;
@@ -1295,7 +1565,7 @@ body:has(.admin-login) {
     z-index: 24;
     padding: 8px 14px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
     border-bottom: 1px solid var(--admin-line-soft);
     background: rgb(8 7 18 / 94%);
@@ -1326,6 +1596,21 @@ body:has(.admin-login) {
   }
   .media-layout {
     grid-template-columns: 1fr;
+  }
+  .team-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .team-photo-field,
+  .team-fields,
+  .team-social-fields,
+  .team-options {
+    grid-column: 1 / -1;
+  }
+  .team-photo-field {
+    grid-row: auto;
+  }
+  .team-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .payment-form {
     grid-template-columns: 1fr 1fr;
@@ -1363,6 +1648,36 @@ body:has(.admin-login) {
     align-items: stretch;
     flex-direction: column;
     gap: 15px;
+  }
+  .team-heading-actions {
+    width: 100%;
+  }
+  .team-heading-actions > * {
+    flex: 1;
+  }
+  .team-form {
+    padding: 15px;
+  }
+  .team-form-grid,
+  .team-fields,
+  .team-social-fields {
+    grid-template-columns: 1fr;
+  }
+  .team-bio,
+  .team-social-fields,
+  .team-options {
+    grid-column: 1;
+  }
+  .team-options {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .team-options > label:first-child {
+    width: 100%;
+  }
+  .team-cards {
+    padding: 12px;
+    grid-template-columns: 1fr;
   }
   .admin-heading h1,
   .admin-heading h2,

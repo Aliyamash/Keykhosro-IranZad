@@ -1,6 +1,7 @@
 const urls = [
   { path: '', changeFrequency: 'weekly', priority: '1.0' },
   { path: '/works', changeFrequency: 'weekly', priority: '0.9' },
+  { path: '/about', changeFrequency: 'monthly', priority: '0.8' },
   { path: '/studio', changeFrequency: 'monthly', priority: '0.8' },
 ];
 
@@ -9,7 +10,7 @@ export function GET() {
     .map(
       ({ path, changeFrequency, priority }) => `  <url>
     <loc>https://keykhosro-iranzad.com${path}</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>${changeFrequency}</changefreq>
     <priority>${priority}</priority>
   </url>`,

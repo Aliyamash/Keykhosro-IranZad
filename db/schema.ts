@@ -85,3 +85,27 @@ export const projectPayments = sqliteTable(
     index('idx_project_payments_paid_at').on(t.paidAt),
   ],
 );
+
+export const teamMembers = sqliteTable(
+  'team_members',
+  {
+    id: text('id').primaryKey(),
+    nameFa: text('name_fa').notNull(),
+    nameEn: text('name_en').notNull(),
+    roleFa: text('role_fa').notNull().default(''),
+    roleEn: text('role_en').notNull().default(''),
+    bioFa: text('bio_fa').notNull(),
+    bioEn: text('bio_en').notNull(),
+    instagram: text('instagram').notNull().default(''),
+    linkedin: text('linkedin').notNull().default(''),
+    website: text('website').notNull().default(''),
+    objectKey: text('object_key').notNull().default(''),
+    contentType: text('content_type').notNull().default('image/webp'),
+    sortOrder: integer('sort_order').notNull().default(100),
+    isPrimary: integer('is_primary').notNull().default(0),
+    active: integer('active').notNull().default(1),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull(),
+  },
+  (t) => [index('idx_team_members_order').on(t.isPrimary, t.sortOrder)],
+);

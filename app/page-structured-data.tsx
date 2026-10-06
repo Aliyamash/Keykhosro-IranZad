@@ -1,19 +1,26 @@
 import { studioFaqs } from './studio-faqs';
 
 const siteUrl = 'https://keykhosro-iranzad.com';
-const dateModified = '2026-09-28';
+const dateModified = '2026-10-06';
 
 type Props = {
-  type: 'ProfilePage' | 'CollectionPage' | 'ContactPage';
+  type: 'ProfilePage' | 'CollectionPage' | 'ContactPage' | 'AboutPage';
   path: string;
   name: string;
   description: string;
   image: string;
 };
 
-const serialize = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
+const serialize = (value: unknown) =>
+  JSON.stringify(value).replace(/</g, '\\u003c');
 
-export default function PageStructuredData({ type, path, name, description, image }: Props) {
+export default function PageStructuredData({
+  type,
+  path,
+  name,
+  description,
+  image,
+}: Props) {
   const url = new URL(path, siteUrl).toString();
   const data = {
     '@context': 'https://schema.org',
@@ -26,9 +33,18 @@ export default function PageStructuredData({ type, path, name, description, imag
     inLanguage: ['en', 'fa'],
     isPartOf: { '@id': `${siteUrl}/#website` },
     about: { '@id': `${siteUrl}/#person` },
-    primaryImageOfPage: { '@type': 'ImageObject', contentUrl: new URL(image, siteUrl).toString() },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      contentUrl: new URL(image, siteUrl).toString(),
+    },
   };
-  return <script id={`page-structured-data-${type.toLowerCase()}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: serialize(data) }} />;
+  return (
+    <script
+      id={`page-structured-data-${type.toLowerCase()}`}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
 }
 
 export function FaqStructuredData() {
@@ -43,8 +59,17 @@ export function FaqStructuredData() {
       '@type': 'Question',
       name: item.question.en,
       alternateName: item.question.fa,
-      acceptedAnswer: { '@type': 'Answer', text: `${item.answer.en} ${item.answer.fa}` },
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${item.answer.en} ${item.answer.fa}`,
+      },
     })),
   };
-  return <script id="faq-structured-data" type="application/ld+json" dangerouslySetInnerHTML={{ __html: serialize(data) }} />;
+  return (
+    <script
+      id="faq-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
 }

@@ -23,6 +23,8 @@ import { localized, siteCopy } from './site-copy';
 import { siteMedia } from './site-media';
 import { ImpactWelcome } from './impact-welcome';
 import { studioFaqs } from './studio-faqs';
+import AboutContent from './about-content';
+import type { TeamMember } from '@/lib/team';
 import {
   FrameSequence,
   MovingManifesto,
@@ -59,13 +61,15 @@ function LinkedInIcon() {
   );
 }
 
-type Page = 'home' | 'works' | 'studio';
+type Page = 'home' | 'works' | 'studio' | 'about';
 export default function StudioSite({
   page,
   photos = defaultPhotos,
+  teamMembers = [],
 }: {
   page: Page;
   photos?: Photo[];
+  teamMembers?: TeamMember[];
 }) {
   const works = photos.filter((p) => p.section === 'works');
   const gallery = photos.filter((p) => p.section === 'gallery');
@@ -131,7 +135,8 @@ export default function StudioSite({
             <span>{t('آثار', 'Selected work')}</span>
           </a>
           <a
-            href={page === 'home' ? '#about' : '/#about'}
+            href="/about"
+            aria-current={page === 'about' ? 'page' : undefined}
             onClick={() => setMenuOpen(false)}
           >
             <UserRound className="nav-icon" aria-hidden="true" />
@@ -297,10 +302,18 @@ export default function StudioSite({
                   <div>
                     <dt>{t('منابع حرفه‌ای', 'INDUSTRY SOURCES')}</dt>
                     <dd className="about-sources">
-                      <a href="https://www.marikamagazine.com/" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href="https://www.marikamagazine.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Marika Magazine <ArrowUpRight aria-hidden="true" />
                       </a>
-                      <a href="https://kavyar.com/home" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href="https://kavyar.com/home"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Kavyar <ArrowUpRight aria-hidden="true" />
                       </a>
                     </dd>
@@ -513,22 +526,21 @@ export default function StudioSite({
                       )
                     }
                   >
-                    <ChevronLeft aria-hidden="true" />{' '}
-                    {t('قبلی', 'PREVIOUS')}
+                    <ChevronLeft aria-hidden="true" /> {t('قبلی', 'PREVIOUS')}
                   </button>
                   <button
                     onClick={() =>
                       setActive(((active ?? 0) + 1) % works.length)
                     }
                   >
-                    {t('بعدی', 'NEXT')}{' '}
-                    <ChevronRight aria-hidden="true" />
+                    {t('بعدی', 'NEXT')} <ChevronRight aria-hidden="true" />
                   </button>
                 </div>
               </DialogContent>
             </Dialog>
           </>
         )}
+        {page === 'about' && <AboutContent fa={fa} members={teamMembers} />}
         {page === 'studio' && (
           <>
             <section className="page-heading studio-heading">
@@ -573,7 +585,11 @@ export default function StudioSite({
               </div>
               <InquiryForm lang={lang} />
             </section>
-            <section id="faq" className="faq-section" aria-labelledby="faq-title">
+            <section
+              id="faq"
+              className="faq-section"
+              aria-labelledby="faq-title"
+            >
               <header>
                 <span className="eyebrow">KI / FAQ</span>
                 <h2 id="faq-title">
@@ -586,7 +602,9 @@ export default function StudioSite({
                 {studioFaqs.map((item, index) => (
                   <details key={item.question.en} name="studio-faq">
                     <summary>
-                      <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                      <span aria-hidden="true">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
                       <h3>{t(item.question.fa, item.question.en)}</h3>
                       <i aria-hidden="true">+</i>
                     </summary>
@@ -611,7 +629,10 @@ export default function StudioSite({
             href="https://www.instagram.com/keykhosro_iranzad_art/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t('اینستاگرام کیخسرو ایرانزاد', 'Keykhosro Iranzad on Instagram')}
+            aria-label={t(
+              'اینستاگرام کیخسرو ایرانزاد',
+              'Keykhosro Iranzad on Instagram',
+            )}
           >
             <InstagramIcon />
             <span>Instagram</span>
@@ -620,7 +641,10 @@ export default function StudioSite({
             href="https://www.linkedin.com/in/keykhosro-iranzad-a0a01942b"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t('لینکدین کیخسرو ایرانزاد', 'Keykhosro Iranzad on LinkedIn')}
+            aria-label={t(
+              'لینکدین کیخسرو ایرانزاد',
+              'Keykhosro Iranzad on LinkedIn',
+            )}
           >
             <LinkedInIcon />
             <span>LinkedIn</span>
@@ -629,7 +653,10 @@ export default function StudioSite({
             href="https://wa.me/989130231782"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t('پیام در واتس‌اپ بیزنس', 'Message the studio on WhatsApp')}
+            aria-label={t(
+              'پیام در واتس‌اپ بیزنس',
+              'Message the studio on WhatsApp',
+            )}
           >
             <MessageCircle aria-hidden="true" />
             <span>WhatsApp</span>
@@ -645,10 +672,7 @@ export default function StudioSite({
             href="https://trust-ence.com/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t(
-              'وب‌سایت تیم تراستنس',
-              'Visit the Trustence website',
-            )}
+            aria-label={t('وب‌سایت تیم تراستنس', 'Visit the Trustence website')}
           >
             Trustence
           </a>

@@ -6,6 +6,7 @@ const body = `# Keykhosro Iranzad Studio
 
 - [Home](https://keykhosro-iranzad.com/): Selected work, biography, artistic approach, and humanitarian commitment.
 - [Selected Works](https://keykhosro-iranzad.com/works): Curated photography portfolio.
+- [About](https://keykhosro-iranzad.com/about): Bilingual biography of Keykhosro Iranzad and profiles of studio collaborators.
 - [Studio and Contact](https://keykhosro-iranzad.com/studio): Studio process, frequently asked questions, and project inquiry form.
 - [Sitemap](https://keykhosro-iranzad.com/sitemap.xml): Canonical index of public pages.
 

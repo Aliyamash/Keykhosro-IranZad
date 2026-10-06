@@ -100,13 +100,17 @@ export function useStudioMotion(page: string, lang: string) {
             },
           });
         });
-      } else
-        enter
-          .from('.reveal-title', { y: 70, opacity: 0, duration: 1.3 }, 0.35)
-          .from('.heading-aside', { y: 25, opacity: 0, duration: 1 }, 0.65);
+      } else {
+        enter.from('.reveal-title', { y: 70, opacity: 0, duration: 1.3 }, 0.35);
+        enter.from(
+          page === 'about' ? '.about-page-hero>p' : '.heading-aside',
+          { y: 25, opacity: 0, duration: 1 },
+          0.65,
+        );
+      }
       gsap.utils
         .toArray<HTMLElement>(
-          '.intro h2,.intro p,.studio-copy h2,.studio-copy p,.home-close p,.request-section>div,.big-link',
+          '.intro h2,.intro p,.studio-copy h2,.studio-copy p,.home-close p,.request-section>div,.big-link,.about-page-primary-copy,.about-page-team>header,.about-page-close>*',
         )
         .forEach((el) => {
           gsap.from(el, {
@@ -140,6 +144,16 @@ export function useStudioMotion(page: string, lang: string) {
             },
           },
         );
+      });
+      gsap.utils.toArray<HTMLElement>('.about-page-person').forEach((el, i) => {
+        gsap.from(el, {
+          y: compact ? 22 : 60,
+          opacity: 0,
+          duration: compact ? 0.55 : 1.15,
+          delay: compact ? 0 : i * 0.08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+        });
       });
       if (page === 'studio')
         gsap.fromTo(

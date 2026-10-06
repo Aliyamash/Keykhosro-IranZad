@@ -12,12 +12,14 @@ import {
   LogOut,
   RefreshCw,
   Save,
+  UsersRound,
   WalletCards,
   X,
 } from 'lucide-react';
 import type { Inquiry } from '@/lib/inquiries';
 import PhotoManager from './photo-manager';
 import AccountingManager from './accounting-manager';
+import TeamManager from './team-manager';
 import {
   Table,
   TableHeader,
@@ -53,7 +55,7 @@ const services: Record<string, string> = {
 };
 export default function AdminPanel() {
   const [activeView, setActiveView] = useState<
-    'inquiries' | 'accounting' | 'images'
+    'inquiries' | 'accounting' | 'images' | 'team'
   >('inquiries');
   const [items, setItems] = useState<Inquiry[]>([]),
     [total, setTotal] = useState(0),
@@ -233,6 +235,15 @@ export default function AdminPanel() {
             <Images aria-hidden="true" />
             <span>مدیریت تصاویر</span>
           </button>
+          <button
+            type="button"
+            className={activeView === 'team' ? 'is-active' : ''}
+            aria-current={activeView === 'team' ? 'page' : undefined}
+            onClick={() => setActiveView('team')}
+          >
+            <UsersRound aria-hidden="true" />
+            <span>درباره من و همکاران</span>
+          </button>
         </nav>
         <div className="admin-sidebar-footer">
           <span className="admin-secure-indicator">
@@ -261,7 +272,9 @@ export default function AdminPanel() {
                 ? 'درخواست‌های همکاری'
                 : activeView === 'accounting'
                   ? 'پروژه‌ها و حسابداری'
-                  : 'مدیریت تصاویر'}
+                  : activeView === 'images'
+                    ? 'مدیریت تصاویر'
+                    : 'درباره من و همکاران'}
             </strong>
           </div>
           <a href="/" className="admin-site-link">
@@ -289,6 +302,13 @@ export default function AdminPanel() {
             onClick={() => setActiveView('images')}
           >
             <Images aria-hidden="true" /> تصاویر
+          </button>
+          <button
+            type="button"
+            className={activeView === 'team' ? 'is-active' : ''}
+            onClick={() => setActiveView('team')}
+          >
+            <UsersRound aria-hidden="true" /> درباره من
           </button>
         </nav>
         <div className="admin-content">
@@ -416,6 +436,7 @@ export default function AdminPanel() {
           )}
           {activeView === 'accounting' && <AccountingManager />}
           {activeView === 'images' && <PhotoManager />}
+          {activeView === 'team' && <TeamManager />}
         </div>
       </main>
       <Dialog

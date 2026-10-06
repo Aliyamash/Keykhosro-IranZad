@@ -36,6 +36,13 @@
       "when": 1789854400605,
       "tag": "0004_lethal_shaman",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1791263678292,
+      "tag": "0005_harsh_sumo",
+      "breakpoints": true
     }
   ]
 }
